@@ -1,0 +1,187 @@
+{
+  "generated_at": "2026-07-15 05:30 WIB",
+  "overall_status": "CRITICAL",
+  "critical_count": 4,
+  "warning_count": 4,
+  "blocked_count": 0,
+  "hosts": {
+    "proxmox": {
+      "ip": "10.10.10.2",
+      "status": "HEALTHY",
+      "uptime": "16 days 11h",
+      "load": [0.00, 0.02, 0.01],
+      "memory_gb": {"total": 23, "used": 11, "free": 2.8, "available": 11, "buff_cache": 9.5},
+      "swap_gb": {"total": 8, "used": 2.3, "free": 5.7},
+      "filesystems": {
+        "root": {"size_gb": 67, "used_gb": 20, "avail_gb": 44, "use_pct": 31},
+        "ssd1": {"size_gb": 234, "used_gb": 69, "avail_gb": 154, "use_pct": 31},
+        "backup_nas": {"size_tb": 8.1, "used_tb": 4.3, "avail_tb": 3.8, "use_pct": 54}
+      },
+      "storage": {
+        "backup-nas": {"type": "nfs", "status": "active", "use_pct": 52.68},
+        "local": {"type": "dir", "status": "active", "use_pct": 28.67},
+        "local-lvm": {"type": "lvmthin", "status": "active", "use_pct": 5.53},
+        "ssd1": {"type": "dir", "status": "active", "use_pct": 29.24}
+      },
+      "vms": {"111": {"name": "omv-8", "status": "running", "mem_mb": 8096, "bootdisk_gb": 128}},
+      "lxcs": {
+        "101": {"name": "pihole", "ip": "10.10.10.95", "cores": 1, "maxmem_mb": 256, "status": "running", "failed_units": ["unbound.service"]},
+        "102": {"name": "searxng", "ip": "10.10.10.5", "cores": 2, "maxmem_mb": 1024, "status": "running", "failed_units": []},
+        "103": {"name": "immich", "ip": "10.10.10.3", "cores": 4, "maxmem_mb": 6144, "status": "running", "failed_units": ["run-rpc_pipefs.mount"], "nfs_mount": "/mnt/media/photos"},
+        "104": {"name": "cloudflared", "ip": "10.10.10.15", "cores": 1, "maxmem_mb": 256, "status": "running", "failed_units": []},
+        "105": {"name": "nextcloudpi", "ip": "10.10.10.23", "cores": 2, "maxmem_mb": 2048, "status": "running", "failed_units": ["nvmf-autoconnect.service", "openipmi.service"]},
+        "106": {"name": "onlyoffice", "ip": "10.10.10.49", "cores": 2, "maxmem_mb": 1024, "status": "running", "failed_units": []},
+        "107": {"name": "docker", "ip": "10.10.10.16", "cores": 2, "maxmem_mb": 1024, "status": "running", "failed_units": [], "docker_api_2375": "NOT_LISTENING"},
+        "108": {"name": "project-sandbox", "ip": "10.10.10.83", "cores": 2, "maxmem_mb": 2048, "status": "running", "failed_units": [], "backup": "NOT_IN_CTS"},
+        "109": {"name": "guacamole", "ip": "10.10.10.74", "cores": 1, "maxmem_mb": 3072, "status": "running", "failed_units": [], "backup": "NOT_IN_CTS"},
+        "997": {"name": "tailscale", "ip": "10.10.10.86", "cores": 1, "maxmem_mb": 256, "status": "running", "failed_units": 28, "failed_units_note": "kernel/container compatibility units, cosmetic"}
+      },
+      "failed_system_units": []
+    },
+    "docker-vm": {
+      "ip": "10.10.10.81",
+      "status": "UNREACHABLE",
+      "icmp": "100% loss",
+      "ssh": "timeout",
+      "tier": 3,
+      "note": "deprecated; workloads on LXC 107 unaffected"
+    },
+    "omv": {
+      "ip": "10.10.10.82",
+      "status": "HEALTHY",
+      "uptime": "16 days 11h",
+      "load": [0.05, 0.10, 0.12],
+      "memory_gb": {"total": 7.7, "used": 0.869, "available": 6.8},
+      "swap_gb": {"total": 2.0, "used": 0.105, "free": 1.9},
+      "disks": {
+        "sda": {"size_gb": 128, "model": "QEMU HARDDISK", "use_pct": 7, "mount": "/"},
+        "sdb": {"size_gb": 932, "model": "WDC WD10EZEX-WDCC3F4DL7U3R", "use_pct": 51, "mount": "/srv/dev-disk-by-uuid-4d0bc7cf..."},
+        "sdc": {"size_gb": 466, "model": "ST500DM002-Z2AQN3GA", "use_pct": 51, "mount": "/srv/dev-disk-by-uuid-12190c83..."},
+        "sdd": {"size_gb": 2794, "model": "ST33000650NS-Z297QHKZ", "use_pct": 69, "mount": "/srv/dev-disk-by-uuid-462e1f58..."},
+        "sde": {"size_gb": 466, "model": "ST3500413AS-Z2A63H4M", "use_pct": 52, "mount": "/srv/dev-disk-by-uuid-2686aa4c..."},
+        "sdf": {"size_gb": 1863, "model": "ST2000DM006-Z560SAZA", "use_pct": 69, "mount": "/srv/dev-disk-by-uuid-a9de0ab0..."},
+        "sdg": {"size_gb": 1863, "model": "ST2000LM007-WDZP39YM", "use_pct": 16, "mount": "/srv/dev-disk-by-uuid-4769d9d1...", "smart_issue": true}
+      },
+      "mergerfs": {
+        "mount": "/srv/mergerfs/ark",
+        "branches": 6,
+        "status": "running"
+      },
+      "nfs_exports": [
+        {"path": "/export/backup", "target": "10.10.10.2", "options": "rw,no_root_squash"},
+        {"path": "/export/nextcloud", "target": "10.10.10.0/24", "options": "rw,no_root_squash"},
+        {"path": "/export/media", "target": "10.10.10.0/24", "options": "rw,no_root_squash"},
+        {"path": "/export/ark", "target": "10.10.10.0/24", "options": "rw,no_root_squash"}
+      ],
+      "failed_system_units": ["networking.service", "quotaon@... (6 instances)"],
+      "journal_error_24h": "monit phantom UUID c950af78 filesystem spam (~288 entries)"
+    },
+    "mac-mini": {
+      "ip": "10.10.10.65",
+      "status": "HEALTHY",
+      "icmp": "OK"
+    }
+  },
+  "critical": [
+    {
+      "id": "LXC103-BACKUP-4CONSEC",
+      "title": "LXC 103 immich — 4 consecutive nightly backup failures",
+      "host": "LXC 103 (immich, 10.10.10.3)",
+      "evidence": "vzdump[1611345]: ERROR: Backup of VM 103 failed - command 'tar cpf - ... | zstd ...' failed: interrupted by signal (Jul 15 02:09); same on Jul 14 19:08, Jul 13, Jul 12",
+      "impact": "No vzdump archive for immich; ~90h+ without a recovery point; irreplaceable photo data on NFS at risk"
+    },
+    {
+      "id": "SDG-PENDING-OFFLINE",
+      "title": "sdg — 8 pending + 8 offline uncorrectable sectors (new)",
+      "host": "OMV /dev/sdg (WDC ST2000LM007, WDZP39YM)",
+      "evidence": "smartctl -a /dev/sdg: Current_Pending_Sector=8, Offline_Uncorrectable=8 (was 0 in prior audit)",
+      "impact": "Disk approaching failure; in mergerfs ark pool — failure will degrade pool and risk data loss"
+    },
+    {
+      "id": "VMS-ARRAY-STALE",
+      "title": "proxmox-backup.sh VMS array still contains destroyed VM 100",
+      "host": "Proxmox /usr/local/bin/proxmox-backup.sh",
+      "evidence": "VMS=(100 111); VM 100 was destroyed 2026-07-07 09:44 WIB; qm status 100 returns 'Configuration file does not exist'",
+      "impact": "Nightly backup run tries non-existent VM 100; wastes backup window; masks real failures"
+    },
+    {
+      "id": "LXCS-108-109-NO-BACKUP",
+      "title": "LXCs 108 and 109 — zero backup coverage since provisioning",
+      "host": "Proxmox /usr/local/bin/proxmox-backup.sh",
+      "evidence": "Both VMIDs absent from CTS=(...); no vzdump archives ever produced for project-sandbox or guacamole",
+      "impact": "project-sandbox (arus-finance, polisi-maling) and guacamole (mariadb, tomcat state) have no recovery path"
+    }
+  ],
+  "warnings": [
+    {
+      "id": "LXCS-BACKUP-STALE",
+      "title": "7 LXCs have stale/missing archives (last backup: Mar–Apr 2026 or never)",
+      "host": "Proxmox backup-nas /mnt/pve/backup-nas/dump/",
+      "evidence": "Only LXC 102 (Apr 14) and 997 (Apr 28) have archives; 101, 103, 104, 105, 106, 107 have none; 02:00 pve-custom-backup cron not processing LXCs",
+      "impact": "No LXC-level recovery point beyond running state for searxng, pihole, cloudflared, nextcloudpi, onlyoffice, docker, immich"
+    },
+    {
+      "id": "LXC101-UNBOUND-FAILED",
+      "title": "LXC 101 unbound.service FAILED (stray quote in config)",
+      "host": "LXC 101 (pihole, 10.10.10.95)",
+      "evidence": "systemctl status unbound.service: failed; /etc/unbound/unbound.conf.d/pi-hole.conf line 46 has stray '\"'",
+      "impact": "DNS-over-TLS (port 853) unavailable; dnscrypt-proxy (5053) handles all DNS — non-critical cosmetic"
+    },
+    {
+      "id": "OMV-MONIT-PHANTOM-UUID",
+      "title": "OMV monit phantom UUID c950af78 spam",
+      "host": "OMV (10.10.10.82)",
+      "evidence": "~288 journal entries/day for non-existent filesystem /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1",
+      "impact": "Journal bloat; no functional impact"
+    },
+    {
+      "id": "LXC103-RPC-PIPEFS",
+      "title": "LXC 103 run-rpc_pipefs.mount FAILED (cosmetic)",
+      "host": "LXC 103 (immich, 10.10.10.3)",
+      "evidence": "mount: /run/rpc_pipefs: permission denied inside unprivileged LXC; rpcbind.service running",
+      "impact": "None — immich-web, immich-ml, postgresql all healthy"
+    }
+  ],
+  "action_queue": [
+    {"severity": "CRITICAL", "host": "LXC 103 (immich)", "action": "Add bwlimit=50000 to LXC 103 backup stanza in /usr/local/bin/proxmox-backup.sh and run manually tonight", "why": "4 consecutive failures; no recovery archive; NFS write contention suspected"},
+    {"severity": "CRITICAL", "host": "Proxmox", "action": "Remove 100 from VMS array in /usr/local/bin/proxmox-backup.sh", "why": "VM 100 was destroyed 2026-07-07; script still targets it"},
+    {"severity": "CRITICAL", "host": "Proxmox", "action": "Add 108 and 109 to CTS array in /usr/local/bin/proxmox-backup.sh", "why": "Both LXCs have zero backup coverage since 2026-07-06 provisioning"},
+    {"severity": "CRITICAL", "host": "OMV /dev/sdg", "action": "Monitor sdg closely; plan disk replacement; copy data off sdg branch", "why": "8 pending + 8 offline uncorrectable sectors — imminent failure risk in mergerfs pool"},
+    {"severity": "WARNING", "host": "LXC 101 (pihole)", "action": "Fix stray quote in /etc/unbound/unbound.conf.d/pi-hole.conf line 46 and restart unbound", "why": "DNS-over-TLS unavailable; cosmetic but fixable"},
+    {"severity": "WARNING", "host": "OMV", "action": "Disable monit entry for UUID c950af78", "why": "~288 journal entries/day for non-existent filesystem"},
+    {"severity": "WARNING", "host": "Proxmox", "action": "Investigate pve-custom-backup cron why LXC archives are not being produced (only VM 111 has recent archives)", "why": "LXC backup pipeline broken; 7 LXCs have no recovery archive"}
+  ],
+  "backups": [
+    {"asset": "VM 111 omv-8", "type": "qemu", "latest": "2026-07-15 02:00", "path": "/mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_07_15-02_00_03.vma.zst", "size_gb": 11, "age_hours": "<24", "status": "COVERED"},
+    {"asset": "LXC 101 pihole", "type": "lxc", "latest": "NONE", "path": null, "size_gb": 0, "age_hours": null, "status": "MISSING"},
+    {"asset": "LXC 102 searxng", "type": "lxc", "latest": "2026-04-14 02:19", "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-102-2026_04_14-02_19_36.tar.dat", "size_gb": 0.07, "age_hours": "2208", "status": "STALE"},
+    {"asset": "LXC 103 immich", "type": "lxc", "latest": "NONE (4 consecutive failures)", "path": null, "size_gb": 0, "age_hours": null, "status": "MISSING/FAILED"},
+    {"asset": "LXC 104 cloudflared", "type": "lxc", "latest": "NONE", "path": null, "size_gb": 0, "age_hours": null, "status": "MISSING"},
+    {"asset": "LXC 105 nextcloudpi", "type": "lxc", "latest": "NONE", "path": null, "size_gb": 0, "age_hours": null, "status": "MISSING"},
+    {"asset": "LXC 106 onlyoffice", "type": "lxc", "latest": "NONE", "path": null, "size_gb": 0, "age_hours": null, "status": "MISSING"},
+    {"asset": "LXC 107 docker", "type": "lxc", "latest": "NONE", "path": null, "size_gb": 0, "age_hours": null, "status": "MISSING"},
+    {"asset": "LXC 108 project-sandbox", "type": "lxc", "latest": "NONE", "path": null, "size_gb": 0, "age_hours": null, "status": "NOT_IN_CTS"},
+    {"asset": "LXC 109 guacamole", "type": "lxc", "latest": "NONE", "path": null, "size_gb": 0, "age_hours": null, "status": "NOT_IN_CTS"},
+    {"asset": "LXC 997 tailscale", "type": "lxc", "latest": "2026-04-28 19:22", "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-997-2026_04_28-19_22_39.tar.dat", "size_gb": 0.28, "age_hours": "1872", "status": "STALE"}
+  ],
+  "smart": [
+    {"disk": "sdb", "model": "WDC WD10EZEX-00BN5A0", "serial": "WD-WCC3F4DL7U3R", "smart_passed": true, "power_on_hours": 42409, "temp_c": 41, "reallocated_sectors": 0, "current_pending": 0, "offline_uncorrectable": 0, "udma_crc_errors": 14647, "command_timeout": 0, "note": "high CRC stable"},
+    {"disk": "sdc", "model": "ST500DM002-1BD142", "serial": "Z2AQN3GA", "smart_passed": true, "power_on_hours": 28722, "temp_c": 40, "reallocated_sectors": 56, "current_pending": 0, "offline_uncorrectable": 0, "udma_crc_errors": 6, "command_timeout": 0, "note": "stable reallocated"},
+    {"disk": "sdd", "model": "ST33000650NS", "serial": "Z297QHKZ", "smart_passed": true, "power_on_hours": 19332, "temp_c": 51, "reallocated_sectors": 0, "current_pending": 0, "offline_uncorrectable": 0, "udma_crc_errors": 14, "command_timeout": 85901311331, "note": "very high command timeout counter — concerning"},
+    {"disk": "sde", "model": "ST3500413AS", "serial": "Z2A63H4M", "smart_passed": true, "power_on_hours": 32764, "temp_c": 41, "reallocated_sectors": 51, "current_pending": 0, "offline_uncorrectable": 0, "udma_crc_errors": 11156, "command_timeout": 32, "note": "high CRC stable"},
+    {"disk": "sdf", "model": "ST2000DM006-2DM164", "serial": "Z560SAZA", "smart_passed": true, "power_on_hours": 30615, "temp_c": 42, "reallocated_sectors": 0, "current_pending": 0, "offline_uncorrectable": 0, "udma_crc_errors": 2, "command_timeout": 6, "note": "healthy"},
+    {"disk": "sdg", "model": "ST2000LM007-1R8174", "serial": "WDZP39YM", "smart_passed": true, "power_on_hours": 35204, "temp_c": 38, "reallocated_sectors": 32, "current_pending": 8, "offline_uncorrectable": 8, "udma_crc_errors": 7, "command_timeout": 90196607308, "note": "NEW pending/offline sectors — imminent failure risk"}
+  ],
+  "changes_since_previous": [
+    {"type": "new", "description": "LXC 103 backup failure: now 4 consecutive nights (was 3 at 2026-07-14 audit)"},
+    {"type": "new", "description": "LXC 103 run-rpc_pipefs.mount failed since Jul 14 07:43 (permission denied in unprivileged LXC)"},
+    {"type": "new", "description": "VMS=(100) in backup script — VM 100 destroyed 2026-07-07 but still targeted"},
+    {"type": "new", "description": "LXCs 108 and 109: confirmed zero backup coverage (not in CTS array)"},
+    {"type": "new", "description": "sdg disk: 8 pending + 8 offline uncorrectable sectors (was 0 in prior audit)"},
+    {"type": "unchanged", "description": "LXC 101 unbound failure (known since 2026-07-05)"},
+    {"type": "unchanged", "description": "Docker-VM unreachable (2nd consecutive cycle)"},
+    {"type": "unchanged", "description": "OMV monit UUID c950af78 phantom spam"}
+  ],
+  "report_path": "/Users/beem/homelab-reports/homelab-deep-audit-2026-07-15_05-30.md",
+  "blocked_reason": null
+}

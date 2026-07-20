@@ -1,0 +1,67 @@
+{
+  "generated_at": "2026-07-14 19:30 WIB",
+  "report_type": "platform-reliability-rolling",
+  "gap_vs_sysadmin": "mid-day drift check since morning audit 2026-07-14 05:31",
+  "overall_status": "CLEAN",
+  "status_emoji": "🟢",
+  "docker_drift": {
+    "status": "none",
+    "containers": [
+      {"name": "portainer", "status": "Up 9 days", "image": "portainer/portainer-ce:latest"}
+    ],
+    "compose_stacks": [],
+    "note": "Docker-VM 10.10.10.81 unchanged unreachable — confirmed decommissioned; workloads on LXC 107"
+  },
+  "lxc_gap_services": {
+    "lxc_997_tailscale": {"service": "tailscaled", "status": "active", "result": "RUNNING"},
+    "lxc_104_cloudflared": {"service": "cloudflared", "status": "active", "result": "RUNNING"}
+  },
+  "backup_status": {
+    "note": "evening backup window ~19:00",
+    "assets": [
+      {"asset": "VM 111 omv-8", "latest": "2026-07-14 19:00", "age_min": 30, "status": "ok"},
+      {"asset": "LXC 101 pihole", "latest": "2026-07-14 19:02", "age_min": 28, "status": "ok"},
+      {"asset": "LXC 102 searxng", "latest": "2026-07-14 19:03", "age_min": 27, "status": "ok"},
+      {"asset": "LXC 103 immich", "latest": "2026-07-12 19:04", "age_h": 48, "status": "critical_missing"},
+      {"asset": "LXC 104 cloudflared", "latest": "2026-07-14 19:08", "age_min": 22, "status": "ok"},
+      {"asset": "LXC 105 nextcloudpi", "latest": "2026-07-14 19:08", "age_min": 22, "status": "ok"},
+      {"asset": "LXC 106 onlyoffice", "latest": "2026-07-14 19:12", "age_min": 18, "status": "ok"},
+      {"asset": "LXC 107 docker", "latest": "2026-07-14 19:13", "age_min": 17, "status": "ok"},
+      {"asset": "LXC 997 tailscale", "latest": "2026-07-14 19:14", "age_min": 16, "status": "ok"},
+      {"asset": "LXC 108 project-sandbox", "latest": null, "status": "missing_never_backed_up"},
+      {"asset": "LXC 109 guacamole", "latest": null, "status": "missing_never_backed_up"}
+    ]
+  },
+  "smart_supplemental": {
+    "note": "comparing to morning 2026-07-14 05:31 audit; no increases detected",
+    "devices": [
+      {"device": "/dev/sdb", "current_pending": 0, "offline_uncorrectable": 0, "delta": 0, "status": "stable"},
+      {"device": "/dev/sdc", "current_pending": 0, "offline_uncorrectable": 0, "delta": 0, "status": "stable"},
+      {"device": "/dev/sdd", "current_pending": 0, "offline_uncorrectable": 0, "delta": 0, "status": "stable"},
+      {"device": "/dev/sde", "current_pending": 0, "offline_uncorrectable": 0, "delta": 0, "status": "stable"},
+      {"device": "/dev/sdf", "current_pending": 0, "offline_uncorrectable": 0, "delta": 0, "status": "stable"},
+      {"device": "/dev/sdg", "current_pending": 8, "offline_uncorrectable": 8, "delta": 0, "status": "critical_pre-existing_stable"}
+    ]
+  },
+  "service_reachability": {
+    "note": "spot-check of morning WARNING/CRITICAL items; no new regressions",
+    "items": [
+      {"service": "docker-vm 10.10.10.81", "status": "unreachable", "change": "unchanged", "severity": "WARNING"},
+      {"service": "LXC 101 unbound.service", "status": "failed", "change": "unchanged", "severity": "WARNING"},
+      {"service": "OMV quotaon@ failed units", "status": "failed", "change": "unchanged", "severity": "WARNING"},
+      {"service": "OMV monit UUID spam", "status": "active", "change": "unchanged", "severity": "WARNING"},
+      {"service": "LXC 103 immich backup", "status": "missing", "change": "unchanged", "severity": "CRITICAL"},
+      {"service": "LXC 108/109 no backup", "status": "missing", "change": "unchanged", "severity": "CRITICAL"},
+      {"service": "OMV /dev/sdg SMART", "status": "8 pending+8 offline", "change": "stable_no_growth", "severity": "CRITICAL"}
+    ]
+  },
+  "action_queue": [
+    {"severity": "CRITICAL", "host": "proxmox/lxc-103", "action": "immich backup still failing this evening — CRITICAL unchanged"},
+    {"severity": "CRITICAL", "host": "proxmox/lxc-108", "action": "project-sandbox still never backed up — CRITICAL unchanged"},
+    {"severity": "CRITICAL", "host": "proxmox/lxc-109", "action": "guacamole still never backed up — CRITICAL unchanged"},
+    {"severity": "CRITICAL", "host": "omv/sdg", "action": "sector counts stable since morning; monitor for growth; CRITICAL unchanged"},
+    {"severity": "WARNING", "host": "docker-vm", "action": "confirm if unreachable state is intentional"},
+    {"severity": "WARNING", "host": "proxmox/lxc-101", "action": "unbound.service still failed — cosmetic; unchanged WARNING"}
+  ],
+  "report_path": "/Users/beem/homelab-reports/platform-reliability-rolling-2026-07-14_19-30.md"
+}

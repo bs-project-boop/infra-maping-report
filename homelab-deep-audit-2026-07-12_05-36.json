@@ -1,0 +1,279 @@
+{
+  "generated_at": "2026-07-12 05:36:17 WIB",
+  "overall_status": "CRITICAL",
+  "critical_count": 4,
+  "warning_count": 6,
+  "blocked_count": 0,
+  "hosts": {
+    "proxmox": {
+      "reachable": true,
+      "lxc_ids": [
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "997"
+      ]
+    },
+    "docker_vm": {
+      "reachable": false,
+      "icmp": "100% packet loss",
+      "ssh": "Operation timed out"
+    },
+    "omv": {
+      "reachable": true,
+      "hostname": "openmediavault8"
+    }
+  },
+  "critical": [
+    {
+      "id": "reach-docker-vm",
+      "title": "Docker-VM unreachable",
+      "host": "Docker-VM / VM 100",
+      "evidence": "Ping: 100% packet loss; SSH: Operation timed out after ConnectTimeout=15.",
+      "impact": "Docker-VM services and guest state cannot be audited; Portainer/Dockge/9router availability unknown."
+    },
+    {
+      "id": "smart-sdg",
+      "title": "OMV /dev/sdg SMART media defects",
+      "host": "OMV",
+      "evidence": "SMART PASSED but Reallocated_Sector_Ct=32, Current_Pending_Sector=8, Offline_Uncorrectable=8; 35,132 power-on hours; 39 C.",
+      "impact": "Pending and offline-uncorrectable sectors indicate active disk risk to ark/NAS data."
+    },
+    {
+      "id": "backup-103",
+      "title": "Immich backup gap",
+      "host": "Proxmox LXC 103",
+      "evidence": "Latest archive Jul 7 02:08, 6.5G. Jul 12 run failed after 16.28G staging with tar|zstd interrupted by signal; prior Jul 11 also failed.",
+      "impact": "No successful Immich rootfs backup for ~5 days; recovery point gap for production photos service metadata/config."
+    },
+    {
+      "id": "backup-108-109",
+      "title": "Current LXCs 108 and 109 have no backup archive",
+      "host": "Proxmox LXC 108/109",
+      "evidence": "No vzdump-lxc-108 or vzdump-lxc-109 archive found in backup-nas/dump.",
+      "impact": "Sandbox and Guacamole are outside current backup coverage."
+    }
+  ],
+  "warnings": [
+    {
+      "id": "unbound-failed",
+      "title": "Pi-hole Unbound failed",
+      "host": "LXC 101",
+      "evidence": "unbound.service failed; pihole-FTL and dnscrypt-proxy active; DNS ports 53 and admin HTTP 80 listening.",
+      "impact": "DNSCrypt path is operational, but Unbound DNS-over-TLS path is unavailable."
+    },
+    {
+      "id": "lxc103-rpc",
+      "title": "Immich stale failed mount unit",
+      "host": "LXC 103",
+      "evidence": "run-rpc_pipefs.mount failed; Immich API 2283 and web 3003 open; /api/server/ping returned HTTP 200 pong.",
+      "impact": "Likely stale/non-service mount failure; service functional but unit state should be cleaned after diagnosis."
+    },
+    {
+      "id": "lxc105-failed",
+      "title": "NextcloudPi failed units",
+      "host": "LXC 105",
+      "evidence": "nvmf-autoconnect.service and openipmi.service failed; Apache 80/443 listening; occ status: installed, version 33.0.2.2, maintenance=false, needsDbUpgrade=false.",
+      "impact": "Optional hardware/NVMe units failed; Nextcloud web service remains listening and app reports healthy."
+    },
+    {
+      "id": "lxc997-failed",
+      "title": "Tailscale LXC systemd cascade",
+      "host": "LXC 997",
+      "evidence": "28 failed units including journald/network/tmp/cockpit-related units; tailscaled UDP listener and SSH remain present.",
+      "impact": "Container has degraded systemd state; Tailscale service may still run but management/boot reliability is reduced."
+    },
+    {
+      "id": "omv-failed",
+      "title": "OMV failed units and monit phantom UUID spam",
+      "host": "OMV",
+      "evidence": "networking.service plus six quotaon@ units failed. Monit logs every 30 seconds for nonexistent UUID c950af78-1a6a-4b06-9d03-484c8126e9a1.",
+      "impact": "NAS data mounts are available, but boot/service noise can mask real failures."
+    },
+    {
+      "id": "smart-transport",
+      "title": "OMV disk transport/error counters elevated",
+      "host": "OMV /dev/sdb /dev/sde /dev/sdd /dev/sdg",
+      "evidence": "UDMA_CRC: sdb=14647, sde=11156, sdd=14, sdg=7; command-timeout raw counters very high on sdd/sdg.",
+      "impact": "May indicate cabling/backplane/controller issues in addition to sdg media degradation."
+    }
+  ],
+  "action_queue": [
+    {
+      "severity": "CRITICAL",
+      "host": "OMV /dev/sdg",
+      "action": "Isolate and replace/restore from backup after SMART and cabling diagnosis",
+      "why": "Pending and offline-uncorrectable sectors are non-zero."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "Proxmox LXC 103",
+      "action": "Investigate repeated vzdump tar|zstd interruption and restore successful backup coverage",
+      "why": "Three consecutive failure pattern / last good archive Jul 7."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "Docker-VM",
+      "action": "Verify VM 100 running state and guest/network path from Proxmox console",
+      "why": "ICMP and SSH both timeout; services are unauditable."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "Proxmox LXC 108/109",
+      "action": "Add current LXCs to backup coverage or explicitly document disposable status",
+      "why": "No current archives found."
+    },
+    {
+      "severity": "WARNING",
+      "host": "LXC 101 / OMV / LXC 997",
+      "action": "Diagnose failed units and phantom monit/quota configuration",
+      "why": "Persistent failed units and journal noise reduce reliability."
+    }
+  ],
+  "backups": [
+    {
+      "asset": "111",
+      "latest": "2026-07-12 02:00",
+      "file": "vzdump-qemu-111-2026_07_12-02_00_03.vma.zst",
+      "size": "11G",
+      "status": "covered"
+    },
+    {
+      "asset": "101",
+      "latest": "2026-07-12 02:02",
+      "file": "vzdump-lxc-101-2026_07_12-02_02_51.tar.zst",
+      "size": "416M",
+      "status": "covered"
+    },
+    {
+      "asset": "102",
+      "latest": "2026-07-12 02:03",
+      "file": "vzdump-lxc-102-2026_07_12-02_03_25.tar.zst",
+      "size": "565M",
+      "status": "covered"
+    },
+    {
+      "asset": "103",
+      "latest": "2026-07-07 02:04",
+      "file": "vzdump-lxc-103-2026_07_07-02_04_13.tar.zst",
+      "size": "6.5G",
+      "status": "stale"
+    },
+    {
+      "asset": "104",
+      "latest": "2026-07-12 02:08",
+      "file": "vzdump-lxc-104-2026_07_12-02_08_56.tar.zst",
+      "size": "246M",
+      "status": "covered"
+    },
+    {
+      "asset": "105",
+      "latest": "2026-07-12 02:09",
+      "file": "vzdump-lxc-105-2026_07_12-02_09_18.tar.zst",
+      "size": "7.1G",
+      "status": "covered"
+    },
+    {
+      "asset": "106",
+      "latest": "2026-07-12 02:11",
+      "file": "vzdump-lxc-106-2026_07_12-02_11_34.tar.zst",
+      "size": "1.5G",
+      "status": "covered"
+    },
+    {
+      "asset": "107",
+      "latest": "2026-07-12 02:12",
+      "file": "vzdump-lxc-107-2026_07_12-02_12_35.tar.zst",
+      "size": "414M",
+      "status": "covered"
+    },
+    {
+      "asset": "108",
+      "latest": "\u2014",
+      "file": "\u2014",
+      "size": "\u2014",
+      "status": "missing"
+    },
+    {
+      "asset": "109",
+      "latest": "\u2014",
+      "file": "\u2014",
+      "size": "\u2014",
+      "status": "missing"
+    },
+    {
+      "asset": "997",
+      "latest": "2026-07-12 02:12",
+      "file": "vzdump-lxc-997-2026_07_12-02_12_51.tar.zst",
+      "size": "441M",
+      "status": "covered"
+    }
+  ],
+  "smart": [
+    {
+      "device": "/dev/sdb",
+      "health": "PASSED",
+      "reallocated": 0,
+      "pending": 0,
+      "offline_uncorrectable": 0,
+      "temperature_c": 41,
+      "crc": 14647
+    },
+    {
+      "device": "/dev/sdc",
+      "health": "PASSED",
+      "reallocated": 56,
+      "pending": 0,
+      "offline_uncorrectable": 0,
+      "temperature_c": 40,
+      "crc": 6
+    },
+    {
+      "device": "/dev/sdd",
+      "health": "PASSED",
+      "reallocated": 0,
+      "pending": 0,
+      "offline_uncorrectable": 0,
+      "temperature_c": 52,
+      "crc": 14
+    },
+    {
+      "device": "/dev/sde",
+      "health": "PASSED",
+      "reallocated": 51,
+      "pending": 0,
+      "offline_uncorrectable": 0,
+      "temperature_c": 41,
+      "crc": 11156
+    },
+    {
+      "device": "/dev/sdf",
+      "health": "PASSED",
+      "reallocated": 0,
+      "pending": 0,
+      "offline_uncorrectable": 0,
+      "temperature_c": 42,
+      "crc": 2
+    },
+    {
+      "device": "/dev/sdg",
+      "health": "PASSED",
+      "reallocated": 32,
+      "pending": 8,
+      "offline_uncorrectable": 8,
+      "temperature_c": 39,
+      "crc": 7
+    }
+  ],
+  "changes_since_previous": [
+    "Baseline created; no prior local deep-audit report found."
+  ],
+  "report_path": "/Users/beem/homelab-reports/homelab-deep-audit-2026-07-12_05-36.md",
+  "blocked_reason": null
+}

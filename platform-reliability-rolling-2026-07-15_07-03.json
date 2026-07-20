@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-07-15 07:03 WIB",
+  "report_type": "platform-reliability-rolling",
+  "overall_status": "CLEAN",
+  "status_emoji": "🟢",
+  "gap_vs_sysadmin": "Docker drift / LXC 997+104 / Backup jobs 6h / SMART supplemental",
+  "checks": {
+    "docker_drift": {
+      "status": "PASS",
+      "baseline": "portainer + dockge on LXC 107",
+      "containers_found": ["portainer (Up 9 days, portainer/portainer-ce:latest)"],
+      "compose_stacks": [],
+      "drift": null
+    },
+    "lxc_services": {
+      "lxc_997_tailscale": {
+        "service": "tailscaled",
+        "status": "active",
+        "result": "PASS"
+      },
+      "lxc_104_cloudflared": {
+        "service": "cloudflared",
+        "status": "active",
+        "result": "PASS"
+      }
+    },
+    "backup_status": {
+      "note": "Evening backup window (~19:00) not yet run at time of check (~07:03); morning window checked",
+      "assets_within_6h": {
+        "vm_111_omv8": {"latest": "2026-07-15 02:00", "age_hours": 5, "status": "COVERED"},
+        "lxc_106_onlyoffice": {"latest": "2026-07-15 02:11", "age_hours": 5, "status": "COVERED"},
+        "lxc_107_docker": {"latest": "2026-07-15 02:12", "age_hours": 5, "status": "COVERED"},
+        "lxc_997_tailscale": {"latest": "2026-07-15 02:13", "age_hours": 5, "status": "COVERED"}
+      },
+      "stale_or_missing": {
+        "lxc_101_pihole": {"latest": "2026-05-29", "status": "STALE"},
+        "lxc_102_searxng": {"latest": "2026-04-14", "status": "STALE"},
+        "lxc_103_immich": {"latest": "2026-07-12", "status": "MISSING/CRITICAL"},
+        "lxc_104_cloudflared": {"latest": "NONE", "status": "MISSING"},
+        "lxc_105_nextcloudpi": {"latest": "NONE", "status": "MISSING"},
+        "lxc_108_project_sandbox": {"latest": "NONE", "status": "MISSING/CRITICAL"},
+        "lxc_109_guacamole": {"latest": "NONE", "status": "MISSING/CRITICAL"}
+      }
+    },
+    "smart_supplemental": {
+      "note": "Compared to morning audit 2026-07-15 05:30",
+      "all_disks_no_increase": true,
+      "sdg_stable": {
+        "current_pending_sector": {"morning": 8, "now": 8, "delta": 0},
+        "offline_uncorrectable": {"morning": 8, "now": 8, "delta": 0},
+        "reallocated_sector_ct": {"morning": 32, "now": 32, "delta": 0}
+      }
+    },
+    "service_reachability": {
+      "all_critical_unchanged": true,
+      "items": [
+        {"service": "docker-vm 10.10.10.81", "status": "unreachable", "change": "unchanged", "severity": "WARNING"},
+        {"service": "lxc-101 unbound.service", "status": "failed", "change": "unchanged", "severity": "WARNING"},
+        {"service": "omv quotaon@ failed units", "status": "failed", "change": "unchanged", "severity": "WARNING"},
+        {"service": "omv monit UUID spam", "status": "present", "change": "unchanged", "severity": "WARNING"},
+        {"service": "lxc-103 immich backup", "status": "missing", "change": "unchanged", "severity": "CRITICAL"},
+        {"service": "lxc-108/109 no backup", "status": "missing", "change": "unchanged", "severity": "CRITICAL"},
+        {"service": "omv /dev/sdg SMART", "status": "failing", "change": "unchanged (stable)", "severity": "CRITICAL"}
+      ]
+    }
+  },
+  "action_queue": [
+    {"severity": "CRITICAL", "host": "proxmox/lxc-103", "item": "immich backup 4+ consecutive failures", "finding": "Still failing — CRITICAL unchanged"},
+    {"severity": "CRITICAL", "host": "proxmox/lxc-108", "item": "project-sandbox zero backup coverage", "finding": "Still absent — CRITICAL unchanged"},
+    {"severity": "CRITICAL", "host": "proxmox/lxc-109", "item": "guacamole zero backup coverage", "finding": "Still absent — CRITICAL unchanged"},
+    {"severity": "CRITICAL", "host": "omv/sdg", "item": "8 pending + 8 offline sectors", "finding": "Stable (no delta) — still CRITICAL, monitor for growth"},
+    {"severity": "WARNING", "host": "docker-vm", "item": "unreachable", "finding": "Unchanged — decommissioned"},
+    {"severity": "WARNING", "host": "proxmox/lxc-101", "item": "unbound.service failed", "finding": "Unchanged WARNING"}
+  ],
+  "new_findings": 0,
+  "pre_existing_sysadmin_items": 7,
+  "report_paths": {
+    "markdown": "/Users/beem/homelab-reports/platform-reliability-rolling-2026-07-15_07-03.md",
+    "json": "/Users/beem/homelab-reports/platform-reliability-rolling-2026-07-15_07-03.json"
+  }
+}

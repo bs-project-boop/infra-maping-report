@@ -1,0 +1,60 @@
+{
+  "generated_at": "2026-07-16 07:06 WIB",
+  "overall_status": "WARNING",
+  "gap_vs_sysadmin": "Docker drift / LXC 997+104 / Backup jobs / SMART supplemental (+1.6h since deep audit)",
+  "docker_drift": {
+    "docker_vm": {
+      "ip": "10.10.10.81",
+      "status": "UNREACHABLE",
+      "icmp": "100% loss",
+      "ssh": "timeout",
+      "drift_from_morning": false
+    }
+  },
+  "lxc_gap_services": {
+    "997_tailscale": {
+      "service": "tailscaled",
+      "status": "ACTIVE",
+      "note": "morning audit marked unknown; now confirmed active"
+    },
+    "104_cloudflared": {
+      "service": "cloudflared",
+      "status": "ACTIVE",
+      "note": "morning audit marked unknown; now confirmed active"
+    }
+  },
+  "backup_status": {
+    "check_time": "2026-07-16 07:06 WIB",
+    "fresh_backup_age_hours": 5,
+    "all_covered_assets": [
+      {"asset": "LXC 101 pihole", "latest": "2026-07-16 02:03", "age_hours": 5},
+      {"asset": "LXC 102 searxng", "latest": "2026-07-16 02:04", "age_hours": 5},
+      {"asset": "LXC 104 cloudflared", "latest": "2026-07-16 02:09", "age_hours": 5},
+      {"asset": "LXC 105 nextcloudpi", "latest": "2026-07-16 02:14", "age_hours": 5},
+      {"asset": "LXC 106 onlyoffice", "latest": "2026-07-16 02:15", "age_hours": 5},
+      {"asset": "LXC 107 docker", "latest": "2026-07-16 02:16", "age_hours": 5},
+      {"asset": "LXC 997 tailscale", "latest": "2026-07-16 02:16", "age_hours": 5},
+      {"asset": "VM 111 omv-8", "latest": "2026-07-16 02:00", "age_hours": 5}
+    ],
+    "failures": [
+      {"asset": "LXC 103 immich", "status": "FAILED", "consecutive_nights": 6, "new_failure_today": true}
+    ],
+    "not_in_cts": ["LXC 108 project-sandbox", "LXC 109 guacamole"]
+  },
+  "smart_supplemental": {
+    "omv_sdG": {
+      "model": "ST2000LM007-1R8174",
+      "pending_sectors": 8,
+      "offline_uncorrectable": 8,
+      "change_since_morning": "none"
+    }
+  },
+  "service_reachability": {
+    "lxc103_immich_server": "inactive",
+    "lxc101_unbound": "failed",
+    "lxc101_pihole_ftl": "active",
+    "docker_vm": "unreachable"
+  },
+  "action_queue": [],
+  "report_path": "/Users/beem/homelab-reports/platform-reliability-rolling-2026-07-16_07-06.md"
+}

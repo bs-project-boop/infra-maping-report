@@ -1,0 +1,338 @@
+{
+  "generated_at": "2026-07-18T05:31:38.990917+07:00",
+  "overall_status": "BLOCKED",
+  "critical_count": 3,
+  "warning_count": 12,
+  "blocked_count": 1,
+  "hosts": {
+    "proxmox": {
+      "ip": "10.10.10.2",
+      "ping": {
+        "rc": 0,
+        "out": "PING 10.10.10.2 (10.10.10.2): 56 data bytes\n64 bytes from 10.10.10.2: icmp_seq=0 ttl=64 time=2.644 ms\n\n--- 10.10.10.2 ping statistics ---\n2 packets transmitted, 2 packets received, 0.0% packet loss, 1 packets out of wait time\nround-trip min/avg/max/stddev = 2.644/3.184/3.724/0.540 ms\n"
+      },
+      "ssh": {
+        "rc": 0,
+        "out": "pve\nSat Jul 18 05:31:40 AM WIB 2026\n"
+      }
+    },
+    "docker_vm": {
+      "ip": "10.10.10.81",
+      "ping": {
+        "rc": 2,
+        "out": "PING 10.10.10.81 (10.10.10.81): 56 data bytes\nRequest timeout for icmp_seq 0\n\n--- 10.10.10.81 ping statistics ---\n2 packets transmitted, 0 packets received, 100.0% packet loss\n"
+      },
+      "ssh": {
+        "rc": 255,
+        "out": "ssh: connect to host 10.10.10.81 port 22: Operation timed out\n"
+      }
+    },
+    "omv": {
+      "ip": "10.10.10.82",
+      "ping": {
+        "rc": 0,
+        "out": "PING 10.10.10.82 (10.10.10.82): 56 data bytes\n64 bytes from 10.10.10.82: icmp_seq=1 ttl=64 time=2.939 ms\n\n--- 10.10.10.82 ping statistics ---\n2 packets transmitted, 2 packets received, 0.0% packet loss, 1 packets out of wait time\nround-trip min/avg/max/stddev = 2.939/4.505/6.070/1.565 ms\n"
+      },
+      "ssh": {
+        "rc": 0,
+        "out": "openmediavault8\nSat Jul 18 05:31:59 WIB 2026\n"
+      }
+    }
+  },
+  "critical": [
+    {
+      "id": "backup-108",
+      "title": "LXC 108 has no backup archive",
+      "host": "Proxmox/NFS",
+      "evidence": "CTS array is CTS=(101 102 103 104 105 106 107 997)   # 102 re-included, all LXC app fleet + tailscale; 999 decommissioned",
+      "impact": "New/current LXC is outside backup coverage."
+    },
+    {
+      "id": "backup-109",
+      "title": "LXC 109 has no backup archive",
+      "host": "Proxmox/NFS",
+      "evidence": "CTS array is CTS=(101 102 103 104 105 106 107 997)   # 102 re-included, all LXC app fleet + tailscale; 999 decommissioned",
+      "impact": "New/current LXC is outside backup coverage."
+    },
+    {
+      "id": "smart-sdg",
+      "title": "sdg SMART media errors",
+      "host": "OMV /dev/sdg",
+      "evidence": "{'device': '/dev/sdg', 'health': 'PASSED', 'reallocated': '32', 'pending': '8', 'offline_uncorrectable': '8', 'temperature': '51', 'crc': '7', 'command_timeout': '90196607308'}",
+      "impact": "Data-loss risk on mergerfs/NAS disk."
+    }
+  ],
+  "warnings": [
+    {
+      "id": "reach-docker",
+      "title": "Docker-VM unreachable",
+      "host": "10.10.10.81",
+      "evidence": "ICMP rc=2; SSH rc=255: ssh: connect to host 10.10.10.81 port 22: Operation timed out",
+      "impact": "Deprecated Docker-VM state unknown; LXC 107 workloads unaffected."
+    },
+    {
+      "id": "backup-script-drift",
+      "title": "Backup script inventory drift",
+      "host": "Proxmox",
+      "evidence": "VMS=(100 111)\nCTS=(101 102 103 104 105 106 107 997)   # 102 re-included, all LXC app fleet + tailscale; 999 decommissioned",
+      "impact": "Destroyed VM 100 remains configured; LXCs 108/109 absent from CTS."
+    },
+    {
+      "id": "unbound",
+      "title": "Pi-hole Unbound failed",
+      "host": "LXC 101",
+      "evidence": "systemctl --failed: unbound.service",
+      "impact": "DNS continues via dnscrypt-proxy; DoT/Unbound path unavailable."
+    },
+    {
+      "id": "lxc-105-failed",
+      "title": "Failed units in LXC 105",
+      "host": "LXC 105",
+      "evidence": "nvmf-autoconnect.service",
+      "impact": "Potential service/config issue; inspect individually."
+    },
+    {
+      "id": "tailscale-units",
+      "title": "Expected LXC systemd cosmetic failures",
+      "host": "LXC 997",
+      "evidence": "systemd-tmpfiles-setup-dev-early.service",
+      "impact": "LXC context units fail cosmetically; validate tailscaled separately."
+    },
+    {
+      "id": "omv-failed",
+      "title": "OMV failed systemd units",
+      "host": "OMV",
+      "evidence": "UNIT                                                                                              LOAD   ACTIVE SUB    DESCRIPTION\n● networking.service                                                                                loaded failed failed Raise network interfaces\n● quotaon@srv-dev\\x2ddisk\\x2dby\\x2duuid\\x2d12190c83\\x2de07f\\x2d4939\\x2da607\\x2d70b617b9d7ca.service loaded failed failed Enable File System Quotas\n● quotaon@srv-dev\\x2ddisk\\x2dby\\x2duuid\\x2d2686aa4c\\x2d9c5e\\x2d4d99\\x2dad75\\x2dc64ebf80ff32.service loaded failed failed Enable File System Quotas\n● quotaon@srv-dev\\x2ddisk\\x2dby\\x2duuid\\x2d462e1f58\\x2d19b0\\x2d4b91\\x2db2e2\\x2d126665e55f74.service loaded failed failed Enable File System Quotas\n● quotaon@srv-dev\\x2ddisk\\x2dby\\x2duuid\\x2d4769d9d1\\x2dc190\\x2d4eb6\\x2db4cf\\x2d49707192959d.service loaded failed failed Enable File System Quotas\n● quotaon@srv-dev\\x2ddisk\\x2dby\\x2duuid\\x2d4d0bc7cf\\x2d0fb9\\x2d4ed4\\x2d912b\\x2df188b4ad6d80.service loaded failed failed Enable File System Quotas\n● quotaon@srv-dev\\x2ddisk\\x2dby\\x2duuid\\x2da9de0ab0\\x2da257\\x2d47a6\\x2d9f6b\\x2da2ff5cd38d5a.service loaded failed failed Enable File System Quotas\n\nLegend: LOAD   → Reflects whether the unit definition was properly loaded.\n        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.\n        SUB    → The low-level unit activation state, values depend on unit type.\n",
+      "impact": "Network/quota unit failures may affect monitoring or mount behavior; verify current mounts."
+    },
+    {
+      "id": "endpoint-102-/",
+      "title": "Endpoint unavailable",
+      "host": "LXC 102",
+      "evidence": "{'code': None, 'error': '<urlopen error [Errno 61] Connection refused>'}",
+      "impact": "Service listener may be down or endpoint path differs."
+    },
+    {
+      "id": "endpoint-103",
+      "title": "Immich API semantic check failed",
+      "host": "LXC 103",
+      "evidence": "{'code': None, 'error': '<urlopen error [Errno 61] Connection refused>'}",
+      "impact": "Immich web/API may be degraded."
+    },
+    {
+      "id": "endpoint-103-/",
+      "title": "Endpoint unavailable",
+      "host": "LXC 103",
+      "evidence": "{'code': None, 'error': '<urlopen error [Errno 61] Connection refused>'}",
+      "impact": "Service listener may be down or endpoint path differs."
+    },
+    {
+      "id": "endpoint-105-/status.php",
+      "title": "Endpoint unavailable",
+      "host": "LXC 105",
+      "evidence": "{'code': None, 'error': '<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self signed certificate (_ssl.c:1129)>'}",
+      "impact": "Service listener may be down or endpoint path differs."
+    },
+    {
+      "id": "endpoint-107-/api/status",
+      "title": "Endpoint unavailable",
+      "host": "LXC 107",
+      "evidence": "{'code': None, 'error': '<urlopen error [Errno 61] Connection refused>'}",
+      "impact": "Service listener may be down or endpoint path differs."
+    },
+    {
+      "id": "endpoint-109-/guacamole/",
+      "title": "Endpoint unavailable",
+      "host": "LXC 109",
+      "evidence": "{'code': None, 'error': '<urlopen error [Errno 61] Connection refused>'}",
+      "impact": "Service listener may be down or endpoint path differs."
+    }
+  ],
+  "action_queue": [
+    {
+      "severity": "CRITICAL",
+      "host": "LXC 108",
+      "action": "Add LXC 108 to CTS and run a verified backup",
+      "why": "No archive discovered for this current LXC."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "LXC 109",
+      "action": "Add LXC 109 to CTS and run a verified backup",
+      "why": "No archive discovered for this current LXC."
+    },
+    {
+      "severity": "WARNING",
+      "host": "Proxmox",
+      "action": "Reconcile VMS/CTS arrays with live qm/pct inventory",
+      "why": "Prevents wasted jobs and uncovered LXCs."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "OMV /dev/sdg",
+      "action": "Back up the affected branch and replace the disk",
+      "why": "Pending/offline-uncorrectable sectors indicate active media failure risk."
+    }
+  ],
+  "backups": [
+    {
+      "asset": "108",
+      "latest_backup": null,
+      "path": null,
+      "size_bytes": 0,
+      "status": "missing",
+      "evidence": "no archive/log found"
+    },
+    {
+      "asset": "109",
+      "latest_backup": null,
+      "path": null,
+      "size_bytes": 0,
+      "status": "missing",
+      "evidence": "no archive/log found"
+    },
+    {
+      "asset": "997",
+      "latest_backup": "2026-07-18 02:15:00.8700890660",
+      "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-997-2026_07_18-02_14_50.tar.zst",
+      "size_bytes": 462238439,
+      "status": "covered"
+    },
+    {
+      "asset": "107",
+      "latest_backup": "2026-07-18 02:14:48.0322131870",
+      "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-107-2026_07_18-02_14_33.tar.zst",
+      "size_bytes": 434035235,
+      "status": "covered"
+    },
+    {
+      "asset": "106",
+      "latest_backup": "2026-07-18 02:14:30.6458008470",
+      "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-106-2026_07_18-02_13_30.tar.zst",
+      "size_bytes": 1555513249,
+      "status": "covered"
+    },
+    {
+      "asset": "105",
+      "latest_backup": "2026-07-18 02:13:26.2708379830",
+      "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-105-2026_07_18-02_09_57.tar.zst",
+      "size_bytes": 7680689346,
+      "status": "covered"
+    },
+    {
+      "asset": "104",
+      "latest_backup": "2026-07-18 02:09:55.8281776190",
+      "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-104-2026_07_18-02_09_34.tar.zst",
+      "size_bytes": 257630326,
+      "status": "covered"
+    },
+    {
+      "asset": "102",
+      "latest_backup": "2026-07-18 02:04:24.8977699970",
+      "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-102-2026_07_18-02_03_37.tar.zst",
+      "size_bytes": 593380147,
+      "status": "covered"
+    },
+    {
+      "asset": "101",
+      "latest_backup": "2026-07-18 02:03:35.9610162460",
+      "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-101-2026_07_18-02_02_23.tar.zst",
+      "size_bytes": 445070428,
+      "status": "covered"
+    },
+    {
+      "asset": "111",
+      "latest_backup": "2026-07-18 02:02:22.2665849510",
+      "path": "/mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_07_18-02_00_03.vma.zst",
+      "size_bytes": 10915955683,
+      "status": "covered"
+    },
+    {
+      "asset": "103",
+      "latest_backup": "2026-07-12 19:08:46.1865916310",
+      "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_12-19_04_10.tar.zst",
+      "size_bytes": 6715765260,
+      "status": "stale"
+    }
+  ],
+  "smart": [
+    {
+      "device": "/dev/sda",
+      "health": "OK",
+      "reallocated": null,
+      "pending": null,
+      "offline_uncorrectable": null,
+      "temperature": null,
+      "crc": null,
+      "command_timeout": null
+    },
+    {
+      "device": "/dev/sdb",
+      "health": "PASSED",
+      "reallocated": "0",
+      "pending": "0",
+      "offline_uncorrectable": "0",
+      "temperature": null,
+      "crc": "14647",
+      "command_timeout": null
+    },
+    {
+      "device": "/dev/sdc",
+      "health": "PASSED",
+      "reallocated": "56",
+      "pending": "0",
+      "offline_uncorrectable": "0",
+      "temperature": "42",
+      "crc": "6",
+      "command_timeout": "0 0 148"
+    },
+    {
+      "device": "/dev/sdd",
+      "health": "PASSED",
+      "reallocated": "0",
+      "pending": "0",
+      "offline_uncorrectable": "0",
+      "temperature": "56",
+      "crc": "14",
+      "command_timeout": "8590131331"
+    },
+    {
+      "device": "/dev/sde",
+      "health": "PASSED",
+      "reallocated": "51",
+      "pending": "0",
+      "offline_uncorrectable": "0",
+      "temperature": "43",
+      "crc": "11156",
+      "command_timeout": "32 35 122"
+    },
+    {
+      "device": "/dev/sdf",
+      "health": "PASSED",
+      "reallocated": "0",
+      "pending": "0",
+      "offline_uncorrectable": "0",
+      "temperature": "48",
+      "crc": "2",
+      "command_timeout": "6 6 8"
+    },
+    {
+      "device": "/dev/sdg",
+      "health": "PASSED",
+      "reallocated": "32",
+      "pending": "8",
+      "offline_uncorrectable": "8",
+      "temperature": "51",
+      "crc": "7",
+      "command_timeout": "90196607308"
+    }
+  ],
+  "changes_since_previous": [
+    "Compared with /Users/beem/homelab-reports/homelab-deep-audit-2026-07-17_05-30.md.",
+    "Current backup evidence shows LXC 103 still failing; no current archive was produced.",
+    "Live LXC fleet now includes 108 and 109; backup CTS array remains unchanged.",
+    "Docker-VM remains unreachable; LXC 107 is independently reachable and Docker API 2375 is not listening."
+  ],
+  "report_path": "/Users/beem/homelab-reports/homelab-deep-audit-2026-07-18_05-31-BLOCKED.md",
+  "blocked_reason": "Docker-VM unreachable: ICMP command returned rc=2; SSH command returned rc=255 with evidence: ssh: connect to host 10.10.10.81 port 22: Operation timed out"
+}

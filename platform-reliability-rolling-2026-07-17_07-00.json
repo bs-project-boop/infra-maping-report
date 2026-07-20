@@ -1,0 +1,38 @@
+{
+  "generated_at": "2026-07-17 07:00 WIB",
+  "overall_status": "WARNING",
+  "gap_vs_sysadmin_hours": 1.5,
+  "docker_drift": {
+    "status": "PASS",
+    "containers": [
+      {"name": "portainer", "status": "Up 11 days", "image": "portainer/portainer-ce:latest"}
+    ],
+    "note": "Only portainer running; dockge/9router absent - verify if expected"
+  },
+  "lxc_services": {
+    "997_tailscale": "ACTIVE",
+    "104_cloudflared": "ACTIVE"
+  },
+  "backup_status": {
+    "nightly_run": "2026-07-17 02:00-02:14",
+    "success": 9,
+    "failed": 1,
+    "vm111": {"archive": "vzdump-qemu-111-2026_07_17-02_00_03.vma.zst", "size_gb": 10.9, "age_hours": 5},
+    "lxc997": {"archive": "vzdump-lxc-997-2026_07_17-02_14_22.tar.zst", "size_mb": 441, "age_hours": 5},
+    "lxc103_immich": "FAILED - 7th consecutive"
+  },
+  "smart_supplemental": {
+    "note": "OMV ssh blocked; no new SMART data. Last known: sdg pending=8 offline=8 unchanged."
+  },
+  "service_reachability": {
+    "immich_server_lxc103": "inactive (CRITICAL, unchanged)",
+    "docker_vm": "UNREACHABLE (unchanged)"
+  },
+  "action_queue": [
+    "LXC 103 immich: 7 consecutive backup failures + inactive",
+    "OMV /dev/sdg: 8 pending + 8 offline sectors",
+    "Docker-VM: confirm intentional shutdown",
+    "LXC 108/109: not in backup CTS array",
+    "INFO: dockge/9router absent from LXC 107 - verify expected"
+  ]
+}

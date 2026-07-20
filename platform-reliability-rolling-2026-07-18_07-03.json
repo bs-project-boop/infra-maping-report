@@ -1,0 +1,49 @@
+{
+  "report_type": "platform-reliability-rolling",
+  "generated_at": "2026-07-18T07:03:00+07:00",
+  "status": "RED",
+  "scope": "Gap-fill vs sysadmin deep audit: Docker drift, LXC 997/104, backup jobs, SMART supplemental, reachability",
+  "missing_skills": ["homelab-management", "docker-management"],
+  "docker_drift": {
+    "host": "LXC 107 (10.10.10.16)",
+    "observed": ["portainer|Up 12 days|portainer/portainer-ce:latest"],
+    "expected_baseline": ["portainer", "dockge", "9router"],
+    "unexpected_containers": [],
+    "missing_expected": ["dockge", "9router"],
+    "compose_ls_all": [],
+    "note": "Docker-VM 10.10.10.81 is deprecated/destroyed; Docker was checked in LXC 107 per current topology."
+  },
+  "lxc_services": {"997_tailscaled": "active", "104_cloudflared": "active", "pct_status_both": "running"},
+  "backup_status": {
+    "recent_window_hours": 6,
+    "recent_artifacts": [
+      {"guest": "111", "timestamp": "2026-07-18 02:02:22", "size": "11G"},
+      {"guest": "101", "timestamp": "2026-07-18 02:03:36", "size": "19G"},
+      {"guest": "102", "timestamp": "2026-07-18 02:04:26", "size": "566M"},
+      {"guest": "104", "timestamp": "2026-07-18 02:09:56", "size": "246M"},
+      {"guest": "105", "timestamp": "2026-07-18 02:13:28", "size": "7.2G"},
+      {"guest": "106", "timestamp": "2026-07-18 02:14:32", "size": "1.5G"},
+      {"guest": "107", "timestamp": "2026-07-18 02:14:49", "size": "414M"},
+      {"guest": "997", "timestamp": "2026-07-18 02:15:02", "size": "441M"}
+    ],
+    "summary": "Success=9 Failed=1; CT 103 immich timed out after 300s at 02:09:33.",
+    "artifact_age_at_check": "approximately 4h48m for last successful artifact",
+    "pvesm_list": "did not complete; command hung while querying backup-nas. Backup log and mounted NFS path were used as evidence."
+  },
+  "smart_supplemental": {
+    "devices_checked": ["/dev/sda", "/dev/sdb", "/dev/sdc", "/dev/sdd", "/dev/sde", "/dev/sdf", "/dev/sdg"],
+    "sdg_current_pending": 8,
+    "sdg_offline_uncorrectable": 8,
+    "sdg_reallocated": 32,
+    "comparison_baseline": "2026-07-09 sysadmin audit: sdg pending=8, offline_uncorrectable=8, reallocated=32",
+    "change": "no increase detected in the tracked sdg sector counts",
+    "other_note": "/dev/sdd reports Airflow_Temperature_Celsius FAILING_NOW at 55C; pending and offline-uncorrectable are 0."
+  },
+  "service_reachability": {
+    "immich_server_lxc103": "inactive (still down)",
+    "pihole_unbound_lxc101": "failed (still down)",
+    "proxmox": "reachable; VM111 running",
+    "omv": "reachable; SMART commands completed"
+  },
+  "gap_vs_sysadmin": "This rolling check adds mid-day Docker/LXC tunnel checks and backup/SMART spot checks. It confirms the sysadmin-known immich backup failure remains active, while adding current confirmation that Tailscale and Cloudflared are active, Docker expected services are missing, and sdg sector counts have not increased."
+}

@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-07-14 19:03 WIB",
+  "report_type": "rolling_gap_health_check",
+  "gap_vs_sysadmin": "docker_drift_lxc_997_104_backup_jobs_smart_supplemental",
+  "scope": "gap_fill_only_not_duplicate_of_sysadmin_daily_deep_audit",
+  "overall_status": "WARNING",
+  "docker_drift": {
+    "docker_vm_host": "10.10.10.81",
+    "status": "UNREACHABLE",
+    "reachable_via_jump": false,
+    "drift_detected": false,
+    "note": "Same state as morning audit. Workloads on LXC 107 docker (10.10.10.16).",
+    "baseline_containers": ["portainer", "dockge", "9router"],
+    "docker_vm_note": "Cannot audit container state — confirmed unreachable since morning audit"
+  },
+  "lxc_gap_services": {
+    "lxc_997_tailscale": {
+      "service": "tailscaled",
+      "status": "active",
+      "drift": false
+    },
+    "lxc_104_cloudflared": {
+      "service": "cloudflared",
+      "status": "active",
+      "drift": false
+    }
+  },
+  "backup_status": {
+    "source": "/mnt/pve/backup-nas/dump/",
+    "check_time": "2026-07-14 19:03 WIB",
+    "evening_backup_job": "running",
+    "recent_backups": [
+      {"asset": "LXC 101 pihole", "file": "vzdump-lxc-101-2026_07_14-19_02_51.tar.zst", "age_h": 0},
+      {"asset": "LXC 102 searxng", "file": "vzdump-lxc-102-2026_07_14-19_03_08.tar.zst", "age_h": 0},
+      {"asset": "LXC 104 cloudflared", "file": "vzdump-lxc-104-2026_07_14-19_08_40.tar.zst", "age_h": 0},
+      {"asset": "LXC 105 nextcloudpi", "file": "vzdump-lxc-105-2026_07_14-19_08_58.tar.zst", "age_h": 0},
+      {"asset": "LXC 106 onlyoffice", "file": "vzdump-lxc-106-2026_07_14-19_12_46.tar.zst", "age_h": 0},
+      {"asset": "LXC 107 docker", "file": "vzdump-lxc-107-2026_07_14-19_03_08.tar.zst", "age_h": 0},
+      {"asset": "VM 111 omv-8", "file": "vzdump-lxc-111-2026_07_14-19_03_06.tar.zst", "age_h": 0},
+      {"asset": "LXC 997 tailscale", "file": "vzdump-lxc-997-2026_07_14-19_08_40.tar.zst", "age_h": 0}
+    ],
+    "new_gaps_this_check": [],
+    "known_gaps_from_morning": [
+      {"asset": "LXC 103 immich", "status": "missing_consecutive_failures", "count": "5th night"},
+      {"asset": "LXC 108 project-sandbox", "status": "missing_never_backed_up"},
+      {"asset": "LXC 109 guacamole", "status": "missing_never_backed_up"}
+    ]
+  },
+  "smart_supplemental": {
+    "omv_dev_sda": {
+      "command": "smartctl -H -A /dev/sda",
+      "health_status": "OK",
+      "current_pending_sector": null,
+      "offline_uncorrectable": null,
+      "note": "/dev/sdg (critical drive with pending/offline sectors) was NOT re-checked this gap run — morning audit is the latest baseline"
+    }
+  },
+  "service_reachability_spotcheck": {
+    "from_morning_audit_critical": [
+      {"id": "lxc-103-backup-4consecutive", "morning": "CRITICAL", "current": "CRITICAL", "drift": false},
+      {"id": "lxc-108-no-backup", "morning": "CRITICAL", "current": "CRITICAL", "drift": false},
+      {"id": "lxc-109-no-backup", "morning": "CRITICAL", "current": "CRITICAL", "drift": false},
+      {"id": "omv-sdg-smart", "morning": "CRITICAL", "current": "NOT_RECHECKED", "drift": null}
+    ],
+    "from_morning_audit_warning": [
+      {"id": "lxc-101-unbound-failed", "morning": "WARNING", "current": "NOT_RECHECKED", "drift": null},
+      {"id": "omv-quotaon-failed", "morning": "WARNING", "current": "NOT_RECHECKED", "drift": null},
+      {"id": "omv-monit-uuid-spam", "morning": "WARNING", "current": "NOT_RECHECKED", "drift": null},
+      {"id": "docker-vm-unreachable", "morning": "WARNING", "current": "WARNING", "drift": false}
+    ]
+  },
+  "action_queue": [
+    {"severity": "CRITICAL", "host": "proxmox/lxc-103", "action": "Diagnose immich backup failure (5th consecutive night)", "status": "PENDING"},
+    {"severity": "CRITICAL", "host": "proxmox/lxc-108", "action": "Add LXC 108 to CTS array in proxmox-backup.sh", "status": "PENDING"},
+    {"severity": "CRITICAL", "host": "proxmox/lxc-109", "action": "Add LXC 109 to CTS array in proxmox-backup.sh", "status": "PENDING"},
+    {"severity": "CRITICAL", "host": "omv/sdg", "action": "Plan replacement of ST2000LM007 drive in ark mergerfs pool", "status": "PENDING"},
+    {"severity": "WARNING", "host": "docker-vm", "action": "Confirm decommission status vs unexpected outage", "status": "PENDING"}
+  ]
+}

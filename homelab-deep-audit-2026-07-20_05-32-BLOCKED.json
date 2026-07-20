@@ -1,0 +1,1042 @@
+{
+  "generated_at": "2026-07-20 05:32:52 WIB",
+  "overall_status": "CRITICAL",
+  "critical_count": 20,
+  "warning_count": 2,
+  "blocked_count": 1,
+  "hosts": {
+    "reachability": {
+      "Proxmox": {
+        "ip": "10.10.10.2",
+        "ping_rc": 0,
+        "ping": "PING 10.10.10.2 (10.10.10.2): 56 data bytes\n64 bytes from 10.10.10.2: icmp_seq=0 ttl=64 time=2.638 ms\n\n--- 10.10.10.2 ping statistics ---\n2 packets transmitted, 2 packets received, 0.0% packet loss, 1 packets out of wait time\nround-trip min/avg/max/stddev = 2.638/7.979/13.321/5.341 ms",
+        "ssh_rc": 0,
+        "ssh": "pve"
+      },
+      "Docker-VM": {
+        "ip": "10.10.10.81",
+        "ping_rc": 2,
+        "ping": "PING 10.10.10.81 (10.10.10.81): 56 data bytes\nRequest timeout for icmp_seq 0\n\n--- 10.10.10.81 ping statistics ---\n2 packets transmitted, 0 packets received, 100.0% packet loss",
+        "ssh_rc": 255,
+        "ssh": "ssh: connect to host 10.10.10.81 port 22: Operation timed out"
+      },
+      "OMV": {
+        "ip": "10.10.10.82",
+        "ping_rc": 0,
+        "ping": "PING 10.10.10.82 (10.10.10.82): 56 data bytes\n\n--- 10.10.10.82 ping statistics ---\n2 packets transmitted, 2 packets received, 0.0% packet loss, 2 packets out of wait time\nround-trip min/avg/max/stddev = 3.962/6.077/8.193/2.116 ms",
+        "ssh_rc": 0,
+        "ssh": "openmediavault8"
+      }
+    },
+    "Proxmox": {
+      "rc": 0,
+      "output": "pve\nMon Jul 20 05:33:12 AM WIB 2026\n 05:33:12 up 21 days, 11:20,  4 users,  load average: 0.25, 0.19, 0.12\n               total        used        free      shared  buff/cache   available\nMem:            23Gi        12Gi       3.0Gi       308Mi       8.7Gi        10Gi\nSwap:          8.0Gi       2.8Gi       5.2Gi\n---DF---\nFilesystem                  Size  Used Avail Use% Mounted on\n/dev/mapper/pve-root         67G   20G   44G  31% /\n/dev/sda1                   234G   70G  153G  32% /mnt/ssd1\n10.10.10.82:/export/backup  8.1T  4.3T  3.8T  54% /mnt/pve/backup-nas\n10.10.10.82:/export/media   8.1T  4.3T  3.8T  54% /mnt/nfs/immich\n---PVE STORAGE---\nName              Type     Status     Total (KiB)      Used (KiB) Available (KiB)        %\nbackup-nas         nfs     active      8646059008      4555513856      3992772608   52.69%\nlocal              dir     active        69573880        19970844        46023132   28.70%\nlocal-lvm      lvmthin     active       143773696         9402799       134370896    6.54%\nssd1               dir     active       245023328        72592416       159911628   29.63%\n---QM---\n      VMID NAME                 STATUS     MEM(MB)    BOOTDISK(GB) PID       \n       111 omv-8                running    8096             128.00 1416      \n---PCT---\nVMID       Status     Lock         Name                \n101        running                 pihole              \n102        running                 searxng             \n103        running                 immich              \n104        running                 cloudflared         \n105        running                 nextcloudpi         \n106        running                 onlyoffice          \n107        running                 docker              \n108        running                 project-sandbox     \n109        running                 guacamole           \n997        running                 tailscale           \n---FAILED---\n  UNIT LOAD ACTIVE SUB DESCRIPTION\n\n0 loaded units listed.\n---JOURNAL ERR---\nJul 19 19:08:06 pve vzdump[530111]: ERROR: Backup of VM 103 failed - command 'set -o pipefail && lxc-usernsexec -m u:0:100000:65536 -m g:0:100000:65536 -- tar cpf - --totals --one-file-system -p --sparse --numeric-owner --acls --xattrs '--xattrs-include=user.*' '--xattrs-include=security.capability' '--warning=no-file-ignored' '--warning=no-xattr-write' --one-file-system '--warning=no-file-ignored' '--directory=/var/tmp/vzdump/vzdumptmp530111_103/' ./etc/vzdump/pct.conf ./etc/vzdump/pct.fw '--directory=/var/tmp/vzdump/vzdumptmp530111_103/' --no-anchored '--exclude=lost+found' --anchored '--exclude=./tmp/?*' '--exclude=./var/tmp/?*' '--exclude=./var/run/?*.pid' . | zstd '--threads=1' >/mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_19-19_02_59.tar.dat' failed: interrupted by signal\nJul 19 19:08:06 pve vzdump[530111]: job errors\nJul 19 19:08:06 pve vzdump[530104]: <root@pam> end task UPID:pve:000816BF:0AD52543:6A5CBCF3:vzdump:103:root@pam: job errors\nJul 19 19:12:27 pve kernel: EXT4-fs (dm-9): write access unavailable, skipping orphan cleanup\nJul 20 02:08:59 pve vzdump[1031129]: ERROR: Backup of VM 103 failed - command 'set -o pipefail && lxc-usernsexec -m u:0:100000:65536 -m g:0:100000:65536 -- tar cpf - --totals --one-file-system -p --sparse --numeric-owner --acls --xattrs '--xattrs-include=user.*' '--xattrs-include=security.capability' '--warning=no-file-ignored' '--warning=no-xattr-write' --one-file-system '--warning=no-file-ignored' '--directory=/var/tmp/vzdump/vzdumptmp1031129_103/' ./etc/vzdump/pct.conf ./etc/vzdump/pct.fw '--directory=/var/tmp/vzdump/vzdumptmp1031129_103/' --no-anchored '--exclude=lost+found' --anchored '--exclude=./tmp/?*' '--exclude=./var/tmp/?*' '--exclude=./var/run/?*.pid' . | zstd '--threads=1' >/mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_20-02_03_53.tar.dat' failed: interrupted by signal\nJul 20 02:08:59 pve vzdump[1031129]: job errors\nJul 20 02:08:59 pve vzdump[1031074]: <root@pam> end task UPID:pve:000FBBD9:0AFBADE0:6A5D1F99:vzdump:103:root@pam: job errors\nJul 20 02:14:51 pve kernel: EXT4-fs (dm-9): write access unavailable, skipping orphan cleanup\nJul 20 02:34:20 pve pct[1065359]: failed to open /Users/beem/sport-prediction-dev/deploy/systemd/sport-prediction-backend.service for reading\nJul 20 02:34:20 pve pct[1065352]: <root@pam> end task UPID:pve:0010418F:0AFE779A:6A5D26BC:push_file:108:root@pam: failed to open /Users/beem/sport-prediction-dev/deploy/systemd/sport-prediction-backend.service for reading\n---BACKUPS---\n2026-07-20 02:15:02.1645519670 1052 /mnt/pve/backup-nas/dump/vzdump-lxc-997-2026_07_20-02_14_50.log\n2026-07-20 02:15:01.0961569300 462247391 /mnt/pve/backup-nas/dump/vzdump-lxc-997-2026_07_20-02_14_50.tar.zst\n2026-07-20 02:14:49.4866133190 1688 /mnt/pve/backup-nas/dump/vzdump-lxc-107-2026_07_20-02_14_33.log\n2026-07-20 02:14:47.9276159610 434102085 /mnt/pve/backup-nas/dump/vzdump-lxc-107-2026_07_20-02_14_33.tar.zst\n2026-07-20 02:14:31.8424509880 1697 /mnt/pve/backup-nas/dump/vzdump-lxc-106-2026_07_20-02_13_38.log\n2026-07-20 02:14:29.3870527370 1555661009 /mnt/pve/backup-nas/dump/vzdump-lxc-106-2026_07_20-02_13_38.tar.zst\n2026-07-20 02:13:37.4092939900 1915 /mnt/pve/backup-nas/dump/vzdump-lxc-105-2026_07_20-02_09_27.log\n2026-07-20 02:13:32.7986268510 7681974498 /mnt/pve/backup-nas/dump/vzdump-lxc-105-2026_07_20-02_09_27.tar.zst\n2026-07-20 02:09:25.7978214330 1699 /mnt/pve/backup-nas/dump/vzdump-lxc-104-2026_07_20-02_09_00.log\n2026-07-20 02:09:24.9510506400 257952323 /mnt/pve/backup-nas/dump/vzdump-lxc-104-2026_07_20-02_09_00.tar.zst\n2026-07-20 02:08:59.3378712800 2179 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_20-02_03_53.log\n2026-07-20 02:03:51.8252342640 1690 /mnt/pve/backup-nas/dump/vzdump-lxc-102-2026_07_20-02_03_30.log\n2026-07-20 02:03:49.8710179820 594675676 /mnt/pve/backup-nas/dump/vzdump-lxc-102-2026_07_20-02_03_30.tar.zst\n2026-07-20 02:03:29.4138036130 1693 /mnt/pve/backup-nas/dump/vzdump-lxc-101-2026_07_20-02_02_44.log\n2026-07-20 02:03:28.6304443200 462047639 /mnt/pve/backup-nas/dump/vzdump-lxc-101-2026_07_20-02_02_44.tar.zst\n2026-07-20 02:02:43.7181921850 4495 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_07_20-02_00_03.log\n2026-07-20 02:02:41.1531748780 10911649731 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_07_20-02_00_03.vma.zst\n2026-07-19 19:12:38.0616302090 1052 /mnt/pve/backup-nas/dump/vzdump-lxc-997-2026_07_19-19_12_26.log\n2026-07-19 19:12:37.1300048140 462228724 /mnt/pve/backup-nas/dump/vzdump-lxc-997-2026_07_19-19_12_26.tar.zst\n2026-07-19 19:12:25.4215065190 1685 /mnt/pve/backup-nas/dump/vzdump-lxc-107-2026_07_19-19_12_10.log\n2026-07-19 19:12:24.7067538240 434094370 /mnt/pve/backup-nas/dump/vzdump-lxc-107-2026_07_19-19_12_10.tar.zst\n2026-07-19 19:12:08.6566907360 1695 /mnt/pve/backup-nas/dump/vzdump-lxc-106-2026_07_19-19_10_34.log\n2026-07-19 19:12:05.6022649170 1555682883 /mnt/pve/backup-nas/dump/vzdump-lxc-106-2026_07_19-19_10_34.tar.zst\n2026-07-19 19:10:33.5873188340 1912 /mnt/pve/backup-nas/dump/vzdump-lxc-105-2026_07_19-19_08_19.log\n2026-07-19 19:10:29.3268540960 7681391928 /mnt/pve/backup-nas/dump/vzdump-lxc-105-2026_07_19-19_08_19.tar.zst\n2026-07-19 19:08:17.9082495070 1697 /mnt/pve/backup-nas/dump/vzdump-lxc-104-2026_07_19-19_08_07.log\n2026-07-19 19:08:17.3255601390 257936692 /mnt/pve/backup-nas/dump/vzdump-lxc-104-2026_07_19-19_08_07.tar.zst\n2026-07-19 19:08:06.1414881770 2183 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_19-19_02_59.log\n2026-07-19 19:02:58.4219705090 1687 /mnt/pve/backup-nas/dump/vzdump-lxc-102-2026_07_19-19_02_37.log\n2026-07-19 19:02:56.4729953040 594502487 /mnt/pve/backup-nas/dump/vzdump-lxc-102-2026_07_19-19_02_37.tar.zst\n2026-07-19 19:02:35.9400228090 1686 /mnt/pve/backup-nas/dump/vzdump-lxc-101-2026_07_19-19_02_20.log\n2026-07-19 19:02:35.2563015390 462675680 /mnt/pve/backup-nas/dump/vzdump-lxc-101-2026_07_19-19_02_20.tar.zst\n2026-07-19 19:02:18.8782233110 4490 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_07_19-19_00_03.log\n2026-07-19 19:02:17.6331208150 10912955096 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_07_19-19_00_03.vma.zst\n2026-07-19 02:13:23.6846089430 1052 /mnt/pve/backup-nas/dump/vzdump-lxc-997-2026_07_19-02_13_12.log\n2026-07-19 02:13:22.9753382160 462233500 /mnt/pve/backup-nas/dump/vzdump-lxc-997-2026_07_19-02_13_12.tar.zst\n2026-07-19 02:13:11.3841301430 1688 /mnt/pve/backup-nas/dump/vzdump-lxc-107-2026_07_19-02_12_54.log\n2026-07-19 02:13:10.7923632620 434071777 /mnt/pve/backup-nas/dump/vzdump-lxc-107-2026_07_19-02_12_54.tar.zst\n2026-07-19 02:12:53.0864286330 1697 /mnt/pve/backup-nas/dump/vzdump-lxc-106-2026_07_19-02_12_02.log\n2026-07-19 02:12:51.5858014870 1555591518 /mnt/pve/backup-nas/dump/vzdump-lxc-106-2026_07_19-02_12_02.tar.zst\n2026-07-19 02:12:01.6243021520 1914 /mnt/pve/backup-nas/dump/vzdump-lxc-105-2026_07_19-02_09_19.log\n2026-07-19 02:11:58.5186246970 7679140282 /mnt/pve/backup-nas/dump/vzdump-lxc-105-2026_07_19-02_09_19.tar.zst\n2026-07-19 02:09:17.8343927350 1699 /mnt/pve/backup-nas/dump/vzdump-lxc-104-2026_07_19-02_09_07.log\n2026-07-19 02:09:17.3075476340 257652705 /mnt/pve/backup-nas/dump/vzdump-lxc-104-2026_07_19-02_09_07.tar.zst\n2026-07-19 02:09:06.1972997430 2179 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_19-02_04_00.log\n2026-07-19 02:03:59.1770700950 1690 /mnt/pve/backup-nas/dump/vzdump-lxc-102-2026_07_19-02_03_39.log\n2026-07-19 02:03:57.7455809390 593739184 /mnt/pve/backup-nas/dump/vzdump-lxc-102-2026_07_19-02_03_39.tar.zst\n2026-07-19 02:03:38.1272300550 1692 /mnt/pve/backup-nas/dump/vzdump-lxc-101-2026_07_19-02_02_32.log\n2026-07-19 02:03:37.5168803150 445865948 /mnt/pve/backup-nas/dump/vzdump-lxc-101-2026_07_19-02_02_32.tar.zst\n2026-07-19 02:02:31.3806040020 4492 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_07_19-02_00_02.log\n2026-07-19 02:02:30.8793158350 10893816126 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_07_19-02_00_02.vma.zst\n2026-07-18 19:09:22.8836817420 2179 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_18-19_04_14.log\n2026-07-18 02:09:33.1994235820 1561 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_18-02_04_27.log\n2026-07-17 19:08:58.0912112160 1561 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_17-19_03_51.log\n2026-07-17 02:10:43.6661908500 2175 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_17-02_05_35.log\n2026-07-16 19:10:03.0520392880 2171 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_16-19_04_56.log\n2026-07-16 02:09:16.2245952030 2179 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_16-02_04_09.log\n2026-07-15 19:08:51.6017456490 2179 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_15-19_03_40.log\n2026-07-15 02:09:28.2011205760 2179 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_15-02_04_19.log\n2026-07-14 19:08:39.0838355940 2181 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_14-19_03_29.log\n2026-07-14 02:09:09.1239651620 2173 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_14-02_04_01.log\n2026-07-13 19:09:58.5543893400 2181 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_13-19_04_47.log\n2026-07-13 02:09:11.4868353210 2182 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_13-02_04_04.log\n2026-07-12 19:08:56.4422186480 1905 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_12-19_04_10.log\n2026-07-12 19:08:46.1865916310 6715765260 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_12-19_04_10.tar.zst\n2026-07-12 02:08:54.9896284030 2181 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_12-02_03_45.log\n2026-07-11 19:09:46.1020340960 2177 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_11-19_04_36.log\n2026-07-11 02:08:38.2163364290 1233 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_11-02_03_31.log\n2026-07-10 19:08:48.0384812880 2181 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_10-19_03_38.log\n2026-07-10 02:09:40.0166525890 2181 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_10-02_04_31.log\n2026-07-09 19:09:45.7770381300 2181 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_09-19_04_39.log\n2026-07-09 02:08:59.0992830110 2177 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_09-02_03_52.log\n2026-07-08 19:09:27.7240739990 1561 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_08-19_04_21.log\n2026-07-08 02:09:38.3893992970 2181 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_08-02_04_31.log\n2026-07-07 19:08:29.0628708110 2181 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_07-19_03_21.log\n2026-07-07 02:09:03.8392197250 1905 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_07-02_04_13.log\n2026-07-07 02:08:55.3464993050 6963158186 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_07-02_04_13.tar.zst\n2026-07-06 19:09:58.3621196600 2181 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_06-19_04_50.log\n2026-07-06 02:09:09.7861671330 2179 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_06-02_04_03.log\n2026-07-05 19:09:43.5868987260 2179 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_05-19_04_32.log\n2026-07-05 02:08:43.5216031780 2173 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_05-02_03_33.log\n2026-07-04 21:20:40.9638303210 1185 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_04-21_17_50.log\n2026-07-04 21:20:37.7889709520 5924000201 /mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_04-21_17_50.tar.zst\n2026-06-29 02:04:20.6218062710 7629 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_29-02_00_03.log\n2026-06-28 19:03:29.0476357800 7314 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_28-19_00_02.log\n2026-06-28 02:03:44.7946468440 7631 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_28-02_00_02.log\n2026-06-20 19:12:20.9391615100 1061 /mnt/pve/backup-nas/dump/vzdump-lxc-999-2026_06_20-19_12_10.log\n2026-06-20 19:12:20.3767299110 371756857 /mnt/pve/backup-nas/dump/vzdump-lxc-999-2026_06_20-19_12_10.tar.zst\n2026-06-20 02:13:09.3304288590 1061 /mnt/pve/backup-nas/dump/vzdump-lxc-999-2026_06_20-02_12_59.log\n2026-06-20 02:13:08.5411216760 371714575 /mnt/pve/backup-nas/dump/vzdump-lxc-999-2026_06_20-02_12_59.tar.zst\n2026-06-19 19:13:40.9728891990 1061 /mnt/pve/backup-nas/dump/vzdump-lxc-999-2026_06_19-19_13_30.log\n2026-06-19 19:13:40.0941653870 371511438 /mnt/pve/backup-nas/dump/vzdump-lxc-999-2026_06_19-19_13_30.tar.zst\n2026-06-16 02:23:06.0146581780 1296 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_06_16-02_08_01.log\n2026-06-14 19:26:37.5795895790 1369 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_06_14-19_15_04.log\n2026-06-14 19:15:03.9925102250 6060 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_14-19_08_34.log\n2026-06-13 19:15:02.9954558090 6488 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_13-19_08_42.log\n2026-06-12 19:15:02.7023419980 6389 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_12-19_08_26.log\n2026-06-11 19:15:03.4551418160 5864 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_11-19_08_48.log\n2026-06-11 02:25:03.0139289610 1207 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_06_11-02_09_59.log\n2026-06-10 19:24:06.0187132180 1191 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_06_10-19_15_03.log\n2026-06-10 19:15:03.1755405460 6179 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_10-19_08_57.log\n2026-06-09 19:30:12.6224754140 1331 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_06_09-19_17_52.log\n2026-06-09 19:15:04.8984250200 6070 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_09-19_09_12.log\n2026-06-08 19:15:02.4181500450 5352 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_08-19_09_27.log\n2026-06-07 19:30:04.4192589300 3658 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_06_07-19_27_57.log\n2026-06-07 19:27:57.8255851360 1280 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_06_07-19_15_02.log\n2026-06-07 19:15:02.7993645370 4938 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_07-19_09_52.log\n2026-06-06 19:15:02.9839849490 5978 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_06-19_09_11.log\n2026-06-05 19:15:02.4821769100 5455 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_05-19_09_46.log\n2026-06-03 19:26:23.0634122860 1280 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_06_03-19_15_03.log\n2026-06-03 19:15:03.3250345030 7325 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_03-19_08_21.log\n2026-06-02 19:30:10.8204094640 1331 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_06_02-19_17_59.log\n2026-06-02 19:15:04.1037809660 7223 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_06_02-19_08_06.log\n2026-05-31 19:30:15.0886130950 1332 /mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_05_31-19_18_12.log\n2026-05-31 19:15:04.3685895510 5556 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_05_31-19_09_10.log\n2026-05-30 19:15:01.9640794620 6286 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_05_30-19_08_19.log\n2026-05-30 00:21:51.1756316290 6703 /mnt/pve/backup-nas/dump/vzdump-qemu-100-2026_05_30-00_14_16.log\n2026-05-29 02:14:35.1827443110 5539 /mnt/pve/backup-nas/dump/vzdump-qemu-101-2026_05_29-02_09_55.log\n2026-05-29 02:14:33.0269224170 19997111060 /mnt/pve/backup-nas/dump/vzdump-qemu-101-2026_05_29-02_09_55.vma.zst\n2026-05-29 00:17:00.4685482420 5539 /mnt/pve/backup-nas/dump/vzdump-qemu-101-2026_05_29-00_12_10.log\n---BACKUP SCRIPT---\nVMS=(100 111)\nCTS=(101 102 103 104 105 106 107 997)   # 102 re-included, all LXC app fleet + tailscale; 999 decommissioned\n---STARTUP---\n### 101\ncores: 1\nhostname: pihole\nmemory: 256\nnet0: name=eth0,bridge=vmbr0,hwaddr=BC:24:11:80:60:AE,ip=dhcp,type=veth\nonboot: 1\nrootfs: ssd1:101/vm-101-disk-0.raw,size=2G\nstartup: order=20,up=15\ntags: adblock;community-script\npihole\nlo               UNKNOWN        127.0.0.1/8 \neth0@if16        UP             10.10.10.95/24 \n  UNIT            LOAD   ACTIVE SUB    DESCRIPTION\n● unbound.service loaded failed failed Unbound DNS server\n\nLegend: LOAD   → Reflects whether the unit definition was properly loaded.\n        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.\n        SUB    → The low-level unit activation state, values depend on unit type.\n\n1 loaded units listed.\n  dnscrypt-proxy.service    loaded active running DNSCrypt-proxy DNS Privacy Proxy\n  pihole-FTL.service        loaded active running Pi-hole FTL\nNetid State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess                                               \nudp   UNCONN 0      0            0.0.0.0:53        0.0.0.0:*    users:((\"pihole-FTL\",pid=131,fd=20))                 \nudp   UNCONN 0      0            0.0.0.0:68        0.0.0.0:*    users:((\"dhclient\",pid=268,fd=7))                    \nudp   UNCONN 0      0          127.0.0.1:5053      0.0.0.0:*    users:((\"dnscrypt-proxy\",pid=89,fd=5))               \nudp   UNCONN 0      0               [::]:53           [::]:*    users:((\"pihole-FTL\",pid=131,fd=22))                 \ntcp   LISTEN 0      32           0.0.0.0:53        0.0.0.0:*    users:((\"pihole-FTL\",pid=131,fd=21))                 \ntcp   LISTEN 0      200          0.0.0.0:80        0.0.0.0:*    users:((\"pihole-FTL\",pid=131,fd=34))                 \ntcp   LISTEN 0      200          0.0.0.0:443       0.0.0.0:*    users:((\"pihole-FTL\",pid=131,fd=35))                 \ntcp   LISTEN 0      100        127.0.0.1:25        0.0.0.0:*    users:((\"master\",pid=371,fd=13))                     \ntcp   LISTEN 0      4096       127.0.0.1:5053      0.0.0.0:*    users:((\"dnscrypt-proxy\",pid=89,fd=6))               \ntcp   LISTEN 0      4096               *:22              *:*    users:((\"sshd\",pid=148,fd=3),(\"systemd\",pid=1,fd=46))\ntcp   LISTEN 0      32              [::]:53           [::]:*    users:((\"pihole-FTL\",pid=131,fd=23))                 \ntcp   LISTEN 0      200             [::]:80           [::]:*    users:((\"pihole-FTL\",pid=131,fd=36))                 \ntcp   LISTEN 0      200             [::]:443          [::]:*    users:((\"pihole-FTL\",pid=131,fd=37))                 \ntcp   LISTEN 0      100            [::1]:25           [::]:*    users:((\"master\",pid=371,fd=14))                     \n### 102\ncores: 2\nhostname: searxng\nmemory: 1024\nnet0: name=eth0,bridge=vmbr0,hwaddr=BC:24:11:A5:75:99,ip=dhcp,type=veth\nonboot: 1\nrootfs: ssd1:102/vm-102-disk-0.raw,size=7G\nstartup: order=20,up=15\ntags: community-script;search\nsearxng\nlo               UNKNOWN        127.0.0.1/8 \neth0@if17        UP             10.10.10.5/24 \n  UNIT LOAD ACTIVE SUB DESCRIPTION\n\n0 loaded units listed.\n  searxng.service           loaded active running SearXNG service\nNetid State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess                                               \nudp   UNCONN 0      0            0.0.0.0:68        0.0.0.0:*    users:((\"dhclient\",pid=220,fd=7))                    \ntcp   LISTEN 0      128          0.0.0.0:8888      0.0.0.0:*    users:((\"python\",pid=152,fd=21))                     \ntcp   LISTEN 0      511        127.0.0.1:6379      0.0.0.0:*    users:((\"valkey-server\",pid=93,fd=8))                \ntcp   LISTEN 0      100        127.0.0.1:25        0.0.0.0:*    users:((\"master\",pid=308,fd=13))                     \ntcp   LISTEN 0      100            [::1]:25           [::]:*    users:((\"master\",pid=308,fd=14))                     \ntcp   LISTEN 0      511            [::1]:6379         [::]:*    users:((\"valkey-server\",pid=93,fd=9))                \ntcp   LISTEN 0      4096               *:22              *:*    users:((\"sshd\",pid=134,fd=3),(\"systemd\",pid=1,fd=45))\n### 103\ncores: 4\nhostname: immich\nmemory: 6144\nmp0: /mnt/nfs/immich/photos,mp=/mnt/media/photos\nnet0: name=eth0,bridge=vmbr0,hwaddr=BC:24:11:CE:2A:D8,ip=dhcp,type=veth\nonboot: 1\nrootfs: ssd1:103/vm-103-disk-0.raw,size=20G\nstartup: order=20,up=30\ntags: community-script;photos\nimmich\nlo               UNKNOWN        127.0.0.1/8 \neth0@if24        UP             10.10.10.3/24 \n  UNIT                 LOAD   ACTIVE SUB    DESCRIPTION\n● run-rpc_pipefs.mount loaded failed failed RPC Pipe File System\n\nLegend: LOAD   → Reflects whether the unit definition was properly loaded.\n        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.\n        SUB    → The low-level unit activation state, values depend on unit type.\n\n1 loaded units listed.\n  immich-ml.service          loaded active running Immich Machine-Learning\n  immich-web.service         loaded active running Immich Web Service\n  postgresql@16-main.service loaded active running PostgreSQL Cluster 16-main\n  redis-server.service       loaded active running Advanced key-value store\n  rpcbind.service            loaded active running RPC bind portmap service\nNetid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                                                   \nudp   UNCONN 0      0            0.0.0.0:68         0.0.0.0:*    users:((\"dhclient\",pid=221,fd=7))                        \nudp   UNCONN 0      0            0.0.0.0:111        0.0.0.0:*    users:((\"rpcbind\",pid=92,fd=5),(\"systemd\",pid=1,fd=35))  \nudp   UNCONN 0      0               [::]:111           [::]:*    users:((\"rpcbind\",pid=92,fd=7),(\"systemd\",pid=1,fd=37))  \ntcp   LISTEN 0      4096         0.0.0.0:111        0.0.0.0:*    users:((\"rpcbind\",pid=92,fd=4),(\"systemd\",pid=1,fd=34))  \ntcp   LISTEN 0      511        127.0.0.1:6379       0.0.0.0:*    users:((\"redis-server\",pid=100,fd=8))                    \ntcp   LISTEN 0      200        127.0.0.1:5432       0.0.0.0:*    users:((\"postgres\",pid=213,fd=7))                        \ntcp   LISTEN 0      100        127.0.0.1:25         0.0.0.0:*    users:((\"master\",pid=315,fd=13))                         \ntcp   LISTEN 0      511                *:2283             *:*    users:((\"immich-api\",pid=400,fd=47))                     \ntcp   LISTEN 0      2048               *:3003             *:*    users:((\"python\",pid=31784,fd=4),(\"python\",pid=365,fd=4))\ntcp   LISTEN 0      100            [::1]:25            [::]:*    users:((\"master\",pid=315,fd=14))                         \ntcp   LISTEN 0      4096            [::]:111           [::]:*    users:((\"rpcbind\",pid=92,fd=6),(\"systemd\",pid=1,fd=36))  \ntcp   LISTEN 0      4096               *:22               *:*    users:((\"sshd\",pid=132,fd=3),(\"systemd\",pid=1,fd=51))    \ntcp   LISTEN 0      511            [::1]:6379          [::]:*    users:((\"redis-server\",pid=100,fd=9))                    \ntcp   LISTEN 0      200            [::1]:5432          [::]:*    users:((\"postgres\",pid=213,fd=6))                        \ntcp   LISTEN 0      511                *:41775            *:*    users:((\"immich\",pid=115,fd=92))                         \n### 104\ncores: 1\nhostname: cloudflared\nmemory: 256\nnet0: name=eth0,bridge=vmbr0,hwaddr=BC:24:11:BE:FF:96,ip=dhcp,type=veth\nonboot: 1\nrootfs: ssd1:104/vm-104-disk-0.raw,size=2G\nstartup: order=20,up=15\ntags: cloudflare;community-script;network\ncloudflared\nlo               UNKNOWN        127.0.0.1/8 \neth0@if18        UP             10.10.10.15/24 \n  UNIT LOAD ACTIVE SUB DESCRIPTION\n\n0 loaded units listed.\n  cloudflared.service       loaded active running cloudflared\nNetid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                                               \nudp   UNCONN 0      0            0.0.0.0:68         0.0.0.0:*    users:((\"dhclient\",pid=192,fd=7))                    \nudp   UNCONN 0      0                  *:46150            *:*    users:((\"cloudflared\",pid=2903,fd=9))                \nudp   UNCONN 0      0                  *:46786            *:*    users:((\"cloudflared\",pid=2903,fd=7))                \nudp   UNCONN 0      0                  *:51993            *:*    users:((\"cloudflared\",pid=2903,fd=3))                \nudp   UNCONN 0      0                  *:39792            *:*    users:((\"cloudflared\",pid=2903,fd=8))                \ntcp   LISTEN 0      100        127.0.0.1:25         0.0.0.0:*    users:((\"master\",pid=291,fd=13))                     \ntcp   LISTEN 0      4096       127.0.0.1:20241      0.0.0.0:*    users:((\"cloudflared\",pid=2903,fd=6))                \ntcp   LISTEN 0      4096               *:22               *:*    users:((\"sshd\",pid=113,fd=3),(\"systemd\",pid=1,fd=45))\ntcp   LISTEN 0      100            [::1]:25            [::]:*    users:((\"master\",pid=291,fd=14))                     \n### 105\ncores: 2\nhostname: nextcloudpi\nmemory: 2048\nmp0: /mnt/nfs_omv_nextcloud,mp=/mnt/nfs_from_omv\nnet0: name=eth0,bridge=vmbr0,hwaddr=BC:24:11:09:31:DB,ip=dhcp,type=veth\nonboot: 1\nrootfs: ssd1:105/vm-105-disk-0.raw,size=32G\nstartup: order=20,up=30\ntags: cloud;community-script\nnextcloudpi\nlo               UNKNOWN        127.0.0.1/8 \neth0@if12        UP             10.10.10.23/24 \n  UNIT                     LOAD   ACTIVE SUB    DESCRIPTION\n● nvmf-autoconnect.service loaded failed failed Connect NVMe-oF subsystems automatically during boot\n● openipmi.service         loaded failed failed LSB: OpenIPMI Driver init script\n\nLOAD   = Reflects whether the unit definition was properly loaded.\nACTIVE = The high-level unit activation state, i.e. generalization of SUB.\nSUB    = The low-level unit activation state, values depend on unit type.\n2 loaded units listed.\n  apache2.service               loaded active running The Apache HTTP Server\n  mariadb.service               loaded active running MariaDB 10.11.18 database server\n  nextcloud-ai-worker@1.service loaded active running Nextcloud AI worker 1\n  notify_push.service           loaded active running Push daemon for Nextcloud clients\n  redis-server.service          loaded active running Advanced key-value store\nNetid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                                                                                       \nudp   UNCONN 0      0            0.0.0.0:68         0.0.0.0:*    users:((\"dhclient\",pid=92,fd=7))                                                             \nudp   UNCONN 0      0            0.0.0.0:5353       0.0.0.0:*    users:((\"avahi-daemon\",pid=91,fd=12))                                                        \nudp   UNCONN 0      0            0.0.0.0:39332      0.0.0.0:*    users:((\"avahi-daemon\",pid=91,fd=14))                                                        \nudp   UNCONN 0      0               [::]:5353          [::]:*    users:((\"avahi-daemon\",pid=91,fd=13))                                                        \nudp   UNCONN 0      0               [::]:42794         [::]:*    users:((\"avahi-daemon\",pid=91,fd=15))                                                        \ntcp   LISTEN 0      80         127.0.0.1:3306       0.0.0.0:*    users:((\"mariadbd\",pid=724675,fd=18))                                                        \ntcp   LISTEN 0      100        127.0.0.1:25         0.0.0.0:*    users:((\"master\",pid=590,fd=13))                                                             \ntcp   LISTEN 0      4096               *:22               *:*    users:((\"sshd\",pid=287,fd=3),(\"systemd\",pid=1,fd=37))                                        \ntcp   LISTEN 0      511                *:80               *:*    users:((\"apache2\",pid=1114539,fd=4),(\"apache2\",pid=1114538,fd=4),(\"apache2\",pid=725062,fd=4))\ntcp   LISTEN 0      511                *:443              *:*    users:((\"apache2\",pid=1114539,fd=6),(\"apache2\",pid=1114538,fd=6),(\"apache2\",pid=725062,fd=6))\ntcp   LISTEN 0      100            [::1]:25            [::]:*    users:((\"master\",pid=590,fd=14))                                                             \ntcp   LISTEN 0      128                *:7867             *:*    users:((\"notify_push\",pid=895168,fd=12))                                                     \n### 106\ncores: 2\nhostname: onlyoffice\nmemory: 1024\nnet0: name=eth0,bridge=vmbr0,hwaddr=BC:24:11:25:30:CA,ip=dhcp,type=veth\nonboot: 1\nrootfs: ssd1:106/vm-106-disk-0.raw,size=10G\nstartup: order=20,up=15\ntags: community-script;excel;pdf;powerpoint;word\nonlyoffice\nlo               UNKNOWN        127.0.0.1/8 \neth0@if19        UP             10.10.10.49/24 \n  UNIT LOAD ACTIVE SUB DESCRIPTION\n\n0 loaded units listed.\n  nginx.service              loaded active running A high performance web server and a reverse proxy server\n  postgresql@16-main.service loaded active running PostgreSQL Cluster 16-main\nNetid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                                                                         \nudp   UNCONN 0      0            0.0.0.0:68         0.0.0.0:*    users:((\"dhclient\",pid=239,fd=7))                                              \ntcp   LISTEN 0      128          0.0.0.0:25672      0.0.0.0:*    users:((\"beam.smp\",pid=98,fd=25))                                              \ntcp   LISTEN 0      100        127.0.0.1:25         0.0.0.0:*    users:((\"master\",pid=351,fd=13))                                               \ntcp   LISTEN 0      511          0.0.0.0:80         0.0.0.0:*    users:((\"nginx\",pid=370,fd=7),(\"nginx\",pid=369,fd=7),(\"nginx\",pid=368,fd=7))   \ntcp   LISTEN 0      511          0.0.0.0:443        0.0.0.0:*    users:((\"nginx\",pid=370,fd=9),(\"nginx\",pid=369,fd=9),(\"nginx\",pid=368,fd=9))   \ntcp   LISTEN 0      200        127.0.0.1:5432       0.0.0.0:*    users:((\"postgres\",pid=220,fd=7))                                              \ntcp   LISTEN 0      100            [::1]:25            [::]:*    users:((\"master\",pid=351,fd=14))                                               \ntcp   LISTEN 0      200            [::1]:5432          [::]:*    users:((\"postgres\",pid=220,fd=6))                                              \ntcp   LISTEN 0      511             [::]:80            [::]:*    users:((\"nginx\",pid=370,fd=8),(\"nginx\",pid=369,fd=8),(\"nginx\",pid=368,fd=8))   \ntcp   LISTEN 0      4096               *:22               *:*    users:((\"sshd\",pid=134,fd=3),(\"systemd\",pid=1,fd=46))                          \ntcp   LISTEN 0      511             [::]:443           [::]:*    users:((\"nginx\",pid=370,fd=10),(\"nginx\",pid=369,fd=10),(\"nginx\",pid=368,fd=10))\ntcp   LISTEN 0      511                *:8000             *:*    users:((\"docservice\",pid=114,fd=20))                                           \ntcp   LISTEN 0      128                *:5672             *:*    users:((\"beam.smp\",pid=98,fd=41))                                              \ntcp   LISTEN 0      4096               *:4369             *:*    users:((\"epmd\",pid=94,fd=3),(\"systemd\",pid=1,fd=45))                           \n### 107\ncores: 2\nhostname: docker\nmemory: 1024\nnet0: name=eth0,bridge=vmbr0,hwaddr=BC:24:11:76:E1:03,ip=dhcp,type=veth\nonboot: 1\nrootfs: ssd1:107/vm-107-disk-0.raw,size=4G\nstartup: order=20,up=15\ntags: community-script;docker\ndocker\nlo               UNKNOWN        127.0.0.1/8 \neth0@if20        UP             10.10.10.16/24 \ndocker0          UP             172.17.0.1/16 \n  UNIT LOAD ACTIVE SUB DESCRIPTION\n\n0 loaded units listed.\n  docker.service            loaded active running Docker Application Container Engine\nNetid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                                               \nudp   UNCONN 0      0            0.0.0.0:68         0.0.0.0:*    users:((\"dhclient\",pid=210,fd=7))                    \ntcp   LISTEN 0      4096       127.0.0.1:45471      0.0.0.0:*    users:((\"containerd\",pid=111,fd=9))                  \ntcp   LISTEN 0      4096         0.0.0.0:9000       0.0.0.0:*    users:((\"docker-proxy\",pid=509,fd=4))                \ntcp   LISTEN 0      4096         0.0.0.0:9443       0.0.0.0:*    users:((\"docker-proxy\",pid=491,fd=4))                \ntcp   LISTEN 0      100        127.0.0.1:25         0.0.0.0:*    users:((\"master\",pid=285,fd=13))                     \ntcp   LISTEN 0      4096               *:22               *:*    users:((\"sshd\",pid=113,fd=3),(\"systemd\",pid=1,fd=50))\ntcp   LISTEN 0      4096            [::]:9000          [::]:*    users:((\"docker-proxy\",pid=514,fd=4))                \ntcp   LISTEN 0      4096            [::]:9443          [::]:*    users:((\"docker-proxy\",pid=497,fd=4))                \ntcp   LISTEN 0      100            [::1]:25            [::]:*    users:((\"master\",pid=285,fd=14))                     \n### 108\ncores: 2\nhostname: project-sandbox\nmemory: 4096\nnet0: name=eth0,bridge=vmbr0,hwaddr=BC:24:11:F0:04:DB,ip=dhcp,type=veth\nonboot: 1\nrootfs: local-lvm:vm-108-disk-0,size=20G\nstartup: order=20,up=15\ntags: community-script;project;sandbox\nproject-sandbox\nlo               UNKNOWN        127.0.0.1/8 \neth0@if25        UP             10.10.10.83/24 \n  UNIT LOAD ACTIVE SUB DESCRIPTION\n\n0 loaded units listed.\n  postgresql@17-main.service        loaded active running PostgreSQL Cluster 17-main\nNetid State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess                                                \ntcp   LISTEN 0      200        127.0.0.1:5432      0.0.0.0:*    users:((\"postgres\",pid=18899,fd=6))                   \ntcp   LISTEN 0      100        127.0.0.1:25        0.0.0.0:*    users:((\"master\",pid=269,fd=13))                      \ntcp   LISTEN 0      200      10.10.10.83:5432      0.0.0.0:*    users:((\"postgres\",pid=18899,fd=7))                   \ntcp   LISTEN 0      511          0.0.0.0:8101      0.0.0.0:*    users:((\"node\",pid=21428,fd=22))                      \ntcp   LISTEN 0      2048         0.0.0.0:8100      0.0.0.0:*    users:((\"uvicorn\",pid=21399,fd=13))                   \ntcp   LISTEN 0      2048         0.0.0.0:8000      0.0.0.0:*    users:((\"uvicorn\",pid=16385,fd=13))                   \ntcp   LISTEN 0      511          0.0.0.0:3001      0.0.0.0:*    users:((\"node\",pid=85,fd=24))                         \ntcp   LISTEN 0      511          0.0.0.0:3000      0.0.0.0:*    users:((\"node\",pid=89,fd=24))                         \ntcp   LISTEN 0      4096               *:22              *:*    users:((\"sshd\",pid=109,fd=3),(\"systemd\",pid=1,fd=122))\ntcp   LISTEN 0      100            [::1]:25           [::]:*    users:((\"master\",pid=269,fd=14))                      \n### 109\ncores: 1\nhostname: guacamole\nmemory: 3072\nnet0: name=eth0,bridge=vmbr0,hwaddr=BC:24:11:23:20:BD,ip=dhcp,type=veth\nonboot: 1\nrootfs: local-lvm:vm-109-disk-0,size=8G\nstartup: order=20,up=15\ntags: community-script;remote;webserver\nguacamole\nlo               UNKNOWN        127.0.0.1/8 \neth0@if23        UP             10.10.10.74/24 \n  UNIT LOAD ACTIVE SUB DESCRIPTION\n\n0 loaded units listed.\n  guacd.service             loaded active running Guacamole Proxy Daemon (guacd)\n  mariadb.service           loaded active running MariaDB 11.8.6 database server\n  tomcat.service            loaded active running Apache Tomcat Web Application Container\nNetid State  Recv-Q Send-Q      Local Address:Port Peer Address:PortProcess                                               \nudp   UNCONN 0      0                 0.0.0.0:68        0.0.0.0:*    users:((\"dhclient\",pid=228,fd=7))                    \ntcp   LISTEN 0      5               127.0.0.1:4822      0.0.0.0:*    users:((\"guacd\",pid=1465995,fd=4))                   \ntcp   LISTEN 0      80              127.0.0.1:3306      0.0.0.0:*    users:((\"mariadbd\",pid=50747,fd=28))                 \ntcp   LISTEN 0      100             127.0.0.1:25        0.0.0.0:*    users:((\"master\",pid=273,fd=13))                     \ntcp   LISTEN 0      100                     *:8080            *:*    users:((\"java\",pid=1431351,fd=44))                   \ntcp   LISTEN 0      4096                    *:22              *:*    users:((\"sshd\",pid=106,fd=3),(\"systemd\",pid=1,fd=91))\ntcp   LISTEN 0      1      [::ffff:127.0.0.1]:8005            *:*    users:((\"java\",pid=1431351,fd=50))                   \ntcp   LISTEN 0      100                 [::1]:25           [::]:*    users:((\"master\",pid=273,fd=14))                     \n### 997\ncores: 1\nhostname: tailscale\nmemory: 256\nnet0: name=eth0,bridge=vmbr0,hwaddr=BC:24:11:AE:25:26,ip=dhcp,ip6=auto,type=veth\nonboot: 1\nrootfs: local-lvm:vm-997-disk-0,size=2G\nstartup: order=20,up=15\ntags: community-script;os;tailscale\n-e \n-e \u001b[1mDebian LXC Container\u001b[m\n-e     🌐  \u001b[m\u001b[33m Provided by: \u001b[1;92mcommunity-scripts ORG \u001b[33m| GitHub: \u001b[1;92mhttps://github.com/community-scripts/ProxmoxVE\u001b[m\n\n-e     🖥️  \u001b[m\u001b[33m OS: \u001b[1;92mDebian GNU/Linux - Version: 13\u001b[m\n-e     🏠  \u001b[m\u001b[33m Hostname: \u001b[1;92mtailscale\u001b[m\n-e     💡  \u001b[m\u001b[33m IP Address: \u001b[1;92m10.10.10.86\u001b[m\ntailscale\nlo               UNKNOWN        127.0.0.1/8 \neth0@if9         UP             10.10.10.86/24 \n  UNIT                                     LOAD   ACTIVE SUB    DESCRIPTION\n● dev-hugepages.mount                      loaded failed failed Huge Pages File System\n● dev-mqueue.mount                         loaded failed failed POSIX Message Queue File System\n● run-lock.mount                           loaded failed failed Legacy Locks Directory /run/lock\n● tmp.mount                                loaded failed failed Temporary Directory /tmp\n● cockpit-wsinstance-socket-user.service   loaded failed failed Dynamic user for /run/cockpit/wsinstance/ sockets\n● console-getty.service                    loaded failed failed Console Getty\n● container-getty@1.service                loaded failed failed Container Getty on /dev/tty1\n● container-getty@2.service                loaded failed failed Container Getty on /dev/tty2\n● man-db.service                           loaded failed failed Daily man-db regeneration\n● NetworkManager.service                   loaded failed failed Network Manager\n● nftables.service                         loaded failed failed nftables\n● polkit.service                           loaded failed failed Authorization Manager\n● systemd-journal-flush.service            loaded failed failed Flush Journal to Persistent Storage\n● systemd-journald.service                 loaded failed failed Journal Service\n● systemd-logind.service                   loaded failed failed User Login Management\n● systemd-network-generator.service        loaded failed failed Generate network units from Kernel command line\n● systemd-networkd.service                 loaded failed failed Network Configuration\n● systemd-sysctl.service                   loaded failed failed Apply Kernel Variables\n● systemd-tmpfiles-clean.service           loaded failed failed Cleanup of Temporary Directories\n● systemd-tmpfiles-setup-dev-early.service loaded failed failed Create Static Device Nodes in /dev gracefully\n● systemd-tmpfiles-setup-dev.service       loaded failed failed Create Static Device Nodes in /dev\n● systemd-tmpfiles-setup.service           loaded failed failed Create System Files and Directories\n● systemd-udev-load-credentials.service    loaded failed failed Load udev Rules from Credentials\n● tailscale-ethtool.service                loaded failed failed Tailscale ETH0 UDP GRO optimization\n● cockpit.socket                           loaded failed failed Cockpit Web Service Socket\n● systemd-journald-dev-log.socket          loaded failed failed Journal Socket (/dev/log)\n● systemd-journald.socket                  loaded failed failed Journal Sockets\n● systemd-networkd.socket                  loaded failed failed Network Service Netlink Socket\n\nLegend: LOAD   → Reflects whether the unit definition was properly loaded.\n        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.\n        SUB    → The low-level unit activation state, values depend on unit type.\n\n28 loaded units listed.\n  tailscaled.service     loaded active running Tailscale node agent\nNetid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                                               \nudp   UNCONN 0      0            0.0.0.0:41641      0.0.0.0:*    users:((\"tailscaled\",pid=97,fd=17))                  \nudp   UNCONN 0      0            0.0.0.0:68         0.0.0.0:*    users:((\"dhclient\",pid=203,fd=6))                    \nudp   UNCONN 0      0               [::]:41641         [::]:*    users:((\"tailscaled\",pid=97,fd=18))                  \ntcp   LISTEN 0      4096               *:22               *:*    users:((\"sshd\",pid=134,fd=3),(\"systemd\",pid=1,fd=44))"
+    },
+    "Docker-VM": {
+      "rc": 1,
+      "output": "UNREACHABLE"
+    },
+    "OMV": {
+      "rc": 0,
+      "output": "openmediavault8\nMon Jul 20 05:34:08 WIB 2026\n 05:34:08 up 21 days, 11:20,  0 users,  load average: 1.69, 1.34, 1.03\n               total        used        free      shared  buff/cache   available\nMem:           7.7Gi       1.1Gi       317Mi       6.6Mi       6.6Gi       6.6Gi\nSwap:          2.0Gi       103Mi       1.9Gi\nFilesystem                                Size  Used Avail Use% Mounted on\nudev                                      3.8G     0  3.8G   0% /dev\ntmpfs                                     785M  932K  784M   1% /run\n/dev/sda1                                 124G  7.9G  110G   7% /\ntmpfs                                     3.9G   84K  3.9G   1% /dev/shm\ntmpfs                                     5.0M     0  5.0M   0% /run/lock\ntmpfs                                     1.0M     0  1.0M   0% /run/credentials/systemd-journald.service\ntmpfs                                     1.0M     0  1.0M   0% /run/credentials/systemd-resolved.service\ntmpfs                                     1.0M     0  1.0M   0% /run/credentials/systemd-networkd.service\ntmpfs                                     3.9G     0  3.9G   0% /tmp\n/dev/sdc1                                 458G  231G  227G  51% /srv/dev-disk-by-uuid-12190c83-e07f-4939-a607-70b617b9d7ca\n/dev/sde1                                 458G  237G  222G  52% /srv/dev-disk-by-uuid-2686aa4c-9c5e-4d99-ad75-c64ebf80ff32\n/dev/sdg1                                 1.8T  279G  1.5T  17% /srv/dev-disk-by-uuid-4769d9d1-c190-4eb6-b4cf-49707192959d\n/dev/sdb1                                 916G  463G  454G  51% /srv/dev-disk-by-uuid-4d0bc7cf-0fb9-4ed4-912b-f188b4ad6d80\n/dev/sdd1                                 2.7T  1.9T  864G  69% /srv/dev-disk-by-uuid-462e1f58-19b0-4b91-b2e2-126665e55f74\n/dev/sdf1                                 1.8T  1.3T  583G  69% /srv/dev-disk-by-uuid-a9de0ab0-a257-47a6-9f6b-a2ff5cd38d5a\nark:762a7791-906e-4a91-bb88-4804e3455333  8.1T  4.3T  3.8T  54% /export/ark\nshm                                        63M     0   63M   0% /var/lib/containers/storage/overlay-containers/5dbdaf7ed054f65b67478e8915178067f42928773c1024492801f3b8f2e4f191/userdata/shm\noverlay                                   124G  7.9G  110G   7% /var/lib/containers/storage/overlay/0081964c9697100597b1cc49354bf33c44cc030328400b6ee91f3505e4c2ce6b/merged\noverlay                                   124G  7.9G  110G   7% /var/lib/containers/storage/overlay/ee1501c611c219a77273ce4f27b93da4a43184f7e4a7aaa4833070c22eead8c1/merged\ntmpfs                                     1.0M     0  1.0M   0% /run/credentials/getty@tty1.service\n---LSBLK---\nNAME     SIZE FSTYPE UUID                                 MOUNTPOINTS                                                MODEL                SERIAL\nsda      128G                                                                                                        QEMU HARDDISK        drive-scsi0\n├─sda1   126G ext4   e1e069d5-e12f-4743-b928-a47e6b58337a /var/lib/containers/storage/overlay                                             \n│                                                         /                                                                               \n├─sda2     1K                                                                                                                             \n└─sda5     2G swap   f0bfcf42-137a-412b-beca-b99fa1e3846e [SWAP]                                                                          \nsdb    931.5G                                                                                                        WDC WD10EZEX-00BN5A0 WD-WCC3F4DL7U3R\n└─sdb1 931.5G ext4   4d0bc7cf-0fb9-4ed4-912b-f188b4ad6d80 /srv/dev-disk-by-uuid-4d0bc7cf-0fb9-4ed4-912b-f188b4ad6d80                      \nsdc    465.8G                                                                                                        ST500DM002-1BD142    Z2AQN3GA\n└─sdc1 465.8G ext4   12190c83-e07f-4939-a607-70b617b9d7ca /srv/dev-disk-by-uuid-12190c83-e07f-4939-a607-70b617b9d7ca                      \nsdd      2.7T                                                                                                        ST33000650NS         Z297QHKZ\n└─sdd1   2.7T ext4   462e1f58-19b0-4b91-b2e2-126665e55f74 /srv/dev-disk-by-uuid-462e1f58-19b0-4b91-b2e2-126665e55f74                      \nsde    465.8G                                                                                                        ST3500413AS          Z2A63H4M\n└─sde1 465.8G ext4   2686aa4c-9c5e-4d99-ad75-c64ebf80ff32 /srv/dev-disk-by-uuid-2686aa4c-9c5e-4d99-ad75-c64ebf80ff32                      \nsdf      1.8T                                                                                                        ST2000DM006-2DM164   Z560SAZA\n└─sdf1   1.8T ext4   a9de0ab0-a257-47a6-9f6b-a2ff5cd38d5a /srv/dev-disk-by-uuid-a9de0ab0-a257-47a6-9f6b-a2ff5cd38d5a                      \nsdg      1.8T                                                                                                        ST2000LM007-1R8174   WDZP39YM\n└─sdg1   1.8T ext4   4769d9d1-c190-4eb6-b4cf-49707192959d /srv/dev-disk-by-uuid-4769d9d1-c190-4eb6-b4cf-49707192959d                      \nsr0     1024M                                                                                                        QEMU DVD-ROM         QM00003\n---MERGERFS---\nroot         595  0.2  1.4 253516 119112 ?       S<sl Jun28  70:08 mergerfs ark:762a7791-906e-4a91-bb88-4804e3455333 /srv/mergerfs/ark -o rw,branches=/srv/dev-disk-by-uuid-12190c83-e07f-4939-a607-70b617b9d7ca:/srv/dev-disk-by-uuid-2686aa4c-9c5e-4d99-ad75-c64ebf80ff32:/srv/dev-disk-by-uuid-462e1f58-19b0-4b91-b2e2-126665e55f74:/srv/dev-disk-by-uuid-4d0bc7cf-0fb9-4ed4-912b-f188b4ad6d80:/srv/dev-disk-by-uuid-a9de0ab0-a257-47a6-9f6b-a2ff5cd38d5a:/srv/dev-disk-by-uuid-4769d9d1-c190-4eb6-b4cf-49707192959d,category.create=mfs,minfreespace=20G,fsname=ark:762a7791-906e-4a91-bb88-4804e3455333,cache.files=off,dev,suid\n---EXPORTFS---\n/export/backup\t10.10.10.2(async,wdelay,hide,no_subtree_check,fsid=b8b17a55-c4b2-4b73-a025-327147830537,sec=sys,rw,secure,no_root_squash,no_all_squash)\n/export       \t10.10.10.2(sync,wdelay,hide,fsid=0,sec=sys,ro,secure,root_squash,no_all_squash)\n/export/nextcloud\n\t\t10.10.10.0/24(async,wdelay,hide,no_subtree_check,fsid=e11d8819-8903-436f-9415-945becbb895a,sec=sys,rw,secure,no_root_squash,no_all_squash)\n/export/media \t10.10.10.0/24(async,wdelay,hide,no_subtree_check,fsid=76cfbfd7-de50-4200-8272-59ad78bd8657,sec=sys,rw,secure,no_root_squash,no_all_squash)\n/export/ark   \t10.10.10.0/24(async,wdelay,hide,no_subtree_check,fsid=0c1c201f-4aa0-45d7-9fea-7396a900cf37,sec=sys,rw,secure,no_root_squash,no_all_squash)\n/export/nextcloud-aio\n\t\t10.10.10.0/24(async,wdelay,hide,no_subtree_check,fsid=fb50c06e-408a-454f-b62e-5cbc55107b26,sec=sys,rw,secure,no_root_squash,no_all_squash)\n/export/corpus\t10.10.10.0/24(async,wdelay,hide,no_subtree_check,fsid=0ceb3ecf-327a-49fe-9f2c-ec0e13835ad7,sec=sys,rw,secure,no_root_squash,no_all_squash)\n/export/seafile\n\t\t10.10.10.0/24(async,wdelay,hide,no_subtree_check,fsid=3af56913-a573-4e1a-b863-fd6479fd4eb4,sec=sys,rw,secure,no_root_squash,no_all_squash)\n/export       \t10.10.10.0/24(sync,wdelay,hide,fsid=0,sec=sys,ro,secure,root_squash,no_all_squash)\n---NFS---\nactive\nactive\n---FAILED---\n  UNIT                                                                                              LOAD   ACTIVE SUB    DESCRIPTION\n● networking.service                                                                                loaded failed failed Raise network interfaces\n● quotaon@srv-dev\\x2ddisk\\x2dby\\x2duuid\\x2d12190c83\\x2de07f\\x2d4939\\x2da607\\x2d70b617b9d7ca.service loaded failed failed Enable File System Quotas\n● quotaon@srv-dev\\x2ddisk\\x2dby\\x2duuid\\x2d2686aa4c\\x2d9c5e\\x2d4d99\\x2dad75\\x2dc64ebf80ff32.service loaded failed failed Enable File System Quotas\n● quotaon@srv-dev\\x2ddisk\\x2dby\\x2duuid\\x2d462e1f58\\x2d19b0\\x2d4b91\\x2db2e2\\x2d126665e55f74.service loaded failed failed Enable File System Quotas\n● quotaon@srv-dev\\x2ddisk\\x2dby\\x2duuid\\x2d4769d9d1\\x2dc190\\x2d4eb6\\x2db4cf\\x2d49707192959d.service loaded failed failed Enable File System Quotas\n● quotaon@srv-dev\\x2ddisk\\x2dby\\x2duuid\\x2d4d0bc7cf\\x2d0fb9\\x2d4ed4\\x2d912b\\x2df188b4ad6d80.service loaded failed failed Enable File System Quotas\n● quotaon@srv-dev\\x2ddisk\\x2dby\\x2duuid\\x2da9de0ab0\\x2da257\\x2d47a6\\x2d9f6b\\x2da2ff5cd38d5a.service loaded failed failed Enable File System Quotas\n\nLegend: LOAD   → Reflects whether the unit definition was properly loaded.\n        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.\n        SUB    → The low-level unit activation state, values depend on unit type.\n\n7 loaded units listed.\n---SMART SCAN---\n/dev/sda -d scsi # /dev/sda, SCSI device\n/dev/sdb -d scsi # /dev/sdb, SCSI device\n/dev/sdc -d scsi # /dev/sdc, SCSI device\n/dev/sdd -d scsi # /dev/sdd, SCSI device\n/dev/sde -d scsi # /dev/sde, SCSI device\n/dev/sdf -d scsi # /dev/sdf, SCSI device\n/dev/sdg -d scsi # /dev/sdg, SCSI device\n### /dev/sda\nCurrent Drive Temperature:     0 C\nDrive Trip Temperature:        0 C\n### /dev/sdb\nSMART overall-health self-assessment test result: PASSED\nID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE\n  5 Reallocated_Sector_Ct   0x0033   200   200   140    Pre-fail  Always       -       0\n  9 Power_On_Hours          0x0032   042   042   000    Old_age   Always       -       42528\n194 Temperature_Celsius     0x0022   101   074   000    Old_age   Always       -       42\n197 Current_Pending_Sector  0x0032   200   200   000    Old_age   Always       -       0\n198 Offline_Uncorrectable   0x0030   200   200   000    Old_age   Offline      -       0\n199 UDMA_CRC_Error_Count    0x0032   200   001   000    Old_age   Always       -       14647\n### /dev/sdc\nSMART overall-health self-assessment test result: PASSED\nID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE\n  5 Reallocated_Sector_Ct   0x0033   100   100   036    Pre-fail  Always       -       56\n  9 Power_On_Hours          0x0032   068   068   000    Old_age   Always       -       28842\n188 Command_Timeout         0x0032   100   030   000    Old_age   Always       -       0 0 148\n190 Airflow_Temperature_Cel 0x0022   059   041   045    Old_age   Always   In_the_past 41 (Min/Max 36/45 #121)\n194 Temperature_Celsius     0x0022   041   059   000    Old_age   Always       -       41 (0 18 0 0 0)\n197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       0\n198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       0\n199 UDMA_CRC_Error_Count    0x003e   200   200   000    Old_age   Always       -       6\n### /dev/sdd\nSMART overall-health self-assessment test result: PASSED\nID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE\n  5 Reallocated_Sector_Ct   0x0033   100   100   036    Pre-fail  Always       -       0\n  9 Power_On_Hours          0x0032   078   078   000    Old_age   Always       -       19332\n188 Command_Timeout         0x0032   100   064   000    Old_age   Always       -       8590131331\n190 Airflow_Temperature_Cel 0x0022   044   042   045    Old_age   Always   FAILING_NOW 56 (Min/Max 40/58 #298)\n194 Temperature_Celsius     0x0022   056   058   000    Old_age   Always       -       56 (0 26 0 0 0)\n197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       0\n198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       0\n199 UDMA_CRC_Error_Count    0x003e   200   200   000    Old_age   Always       -       14\n### /dev/sde\nSMART overall-health self-assessment test result: PASSED\nID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE\n  5 Reallocated_Sector_Ct   0x0033   099   099   036    Pre-fail  Always       -       51\n  9 Power_On_Hours          0x0032   063   063   000    Old_age   Always       -       32884\n188 Command_Timeout         0x0032   100   055   000    Old_age   Always       -       32 35 122\n190 Airflow_Temperature_Cel 0x0022   058   040   045    Old_age   Always   In_the_past 42 (Min/Max 37/47 #220)\n194 Temperature_Celsius     0x0022   042   060   000    Old_age   Always       -       42 (0 17 0 0 0)\n197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       0\n198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       0\n199 UDMA_CRC_Error_Count    0x003e   200   196   000    Old_age   Always       -       11156\n### /dev/sdf\nSMART overall-health self-assessment test result: PASSED\nID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE\n  5 Reallocated_Sector_Ct   0x0033   100   100   010    Pre-fail  Always       -       0\n  9 Power_On_Hours          0x0032   065   065   000    Old_age   Always       -       30735\n188 Command_Timeout         0x0032   100   099   000    Old_age   Always       -       6 6 8\n190 Airflow_Temperature_Cel 0x0022   055   052   045    Old_age   Always       -       45 (Min/Max 38/48)\n194 Temperature_Celsius     0x0022   045   048   000    Old_age   Always       -       45 (0 22 0 0 0)\n197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       0\n198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       0\n199 UDMA_CRC_Error_Count    0x003e   200   200   000    Old_age   Always       -       2\n### /dev/sdg\nSMART overall-health self-assessment test result: PASSED\nID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE\n  5 Reallocated_Sector_Ct   0x0033   056   001   036    Pre-fail  Always   In_the_past 32\n  9 Power_On_Hours          0x0032   060   060   000    Old_age   Always       -       35324 (141 50 0)\n188 Command_Timeout         0x0032   100   038   000    Old_age   Always       -       90196607308\n190 Airflow_Temperature_Cel 0x0022   058   045   040    Old_age   Always       -       42 (Min/Max 35/53)\n194 Temperature_Celsius     0x0022   042   055   000    Old_age   Always       -       42 (0 19 0 0 0)\n197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       8\n198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       8\n199 UDMA_CRC_Error_Count    0x003e   200   200   000    Old_age   Always       -       7\n---JOURNAL ERR---\nJul 20 05:24:18 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:24:18 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:24:18 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:24:18 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:24:48 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:24:48 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:24:48 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:24:48 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:25:18 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:25:18 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:25:18 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:25:18 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:25:48 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:25:48 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:25:48 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:25:48 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:26:18 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:26:18 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:26:18 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:26:18 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:26:48 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:26:48 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:26:48 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:26:48 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:27:18 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:27:18 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:27:18 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:27:18 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:27:48 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:27:48 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:27:48 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:27:48 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:28:18 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:28:18 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:28:18 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:28:18 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:28:48 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:28:48 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:28:48 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:28:48 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:29:18 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:29:18 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:29:18 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:29:18 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:29:48 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:29:48 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:29:48 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:29:48 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:30:18 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:30:18 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:30:18 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:30:18 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:30:48 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:30:49 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:30:49 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:30:49 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:31:19 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:31:19 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:31:19 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:31:19 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:31:49 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:31:49 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:31:49 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:31:49 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:32:19 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:32:19 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:32:19 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:32:19 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:32:49 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:32:49 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:32:49 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:32:49 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:33:19 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:33:19 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:33:19 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:33:19 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:33:49 openmediavault8 monit[764]: Filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' not mounted\nJul 20 05:33:49 openmediavault8 monit[764]: 'filesystem_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' unable to read filesystem '/srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' state\nJul 20 05:33:49 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint\nJul 20 05:33:49 openmediavault8 monit[764]: 'mountpoint_srv_dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1' status failed (32) -- /srv/dev-disk-by-uuid-c950af78-1a6a-4b06-9d03-484c8126e9a1 is not a mountpoint"
+    }
+  },
+  "critical": [
+    {
+      "id": "smart--dev-sdg",
+      "title": "SMART non-zero pending/uncorrectable sectors on /dev/sdg",
+      "host": "OMV",
+      "evidence": "197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       8",
+      "impact": "Disk failure risk; data integrity and mergerfs availability are threatened."
+    },
+    {
+      "id": "smart--dev-sdg",
+      "title": "SMART non-zero pending/uncorrectable sectors on /dev/sdg",
+      "host": "OMV",
+      "evidence": "198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       8",
+      "impact": "Disk failure risk; data integrity and mergerfs availability are threatened."
+    },
+    {
+      "id": "backup-missing-VM111",
+      "title": "Missing backup for VM 111",
+      "host": "Proxmox",
+      "evidence": "No matching archive found in backup discovery",
+      "impact": "No current recovery point is available."
+    },
+    {
+      "id": "backup-missing-LXC101",
+      "title": "Missing backup for LXC 101",
+      "host": "Proxmox",
+      "evidence": "No matching archive found in backup discovery",
+      "impact": "No current recovery point is available."
+    },
+    {
+      "id": "backup-missing-LXC102",
+      "title": "Missing backup for LXC 102",
+      "host": "Proxmox",
+      "evidence": "No matching archive found in backup discovery",
+      "impact": "No current recovery point is available."
+    },
+    {
+      "id": "backup-missing-LXC103",
+      "title": "Missing backup for LXC 103",
+      "host": "Proxmox",
+      "evidence": "No matching archive found in backup discovery",
+      "impact": "No current recovery point is available."
+    },
+    {
+      "id": "backup-missing-LXC104",
+      "title": "Missing backup for LXC 104",
+      "host": "Proxmox",
+      "evidence": "No matching archive found in backup discovery",
+      "impact": "No current recovery point is available."
+    },
+    {
+      "id": "backup-missing-LXC105",
+      "title": "Missing backup for LXC 105",
+      "host": "Proxmox",
+      "evidence": "No matching archive found in backup discovery",
+      "impact": "No current recovery point is available."
+    },
+    {
+      "id": "backup-missing-LXC106",
+      "title": "Missing backup for LXC 106",
+      "host": "Proxmox",
+      "evidence": "No matching archive found in backup discovery",
+      "impact": "No current recovery point is available."
+    },
+    {
+      "id": "backup-missing-LXC107",
+      "title": "Missing backup for LXC 107",
+      "host": "Proxmox",
+      "evidence": "No matching archive found in backup discovery",
+      "impact": "No current recovery point is available."
+    },
+    {
+      "id": "backup-missing-LXC108",
+      "title": "Missing backup for LXC 108",
+      "host": "Proxmox",
+      "evidence": "No matching archive found in backup discovery",
+      "impact": "No current recovery point is available."
+    },
+    {
+      "id": "backup-missing-LXC109",
+      "title": "Missing backup for LXC 109",
+      "host": "Proxmox",
+      "evidence": "No matching archive found in backup discovery",
+      "impact": "No current recovery point is available."
+    },
+    {
+      "id": "backup-missing-LXC997",
+      "title": "Missing backup for LXC 997",
+      "host": "Proxmox",
+      "evidence": "No matching archive found in backup discovery",
+      "impact": "No current recovery point is available."
+    },
+    {
+      "id": "endpoint-101-80",
+      "title": "Pi-hole endpoint port closed",
+      "host": "LXC 101",
+      "evidence": "bash: -c: line 3: unexpected EOF while looking for matching `''",
+      "impact": "Expected application endpoint is not listening."
+    },
+    {
+      "id": "endpoint-102-8080",
+      "title": "SearXNG endpoint port closed",
+      "host": "LXC 102",
+      "evidence": "bash: -c: line 3: unexpected EOF while looking for matching `''",
+      "impact": "Expected application endpoint is not listening."
+    },
+    {
+      "id": "endpoint-103-2283",
+      "title": "Immich endpoint port closed",
+      "host": "LXC 103",
+      "evidence": "bash: -c: line 3: unexpected EOF while looking for matching `''",
+      "impact": "Expected application endpoint is not listening."
+    },
+    {
+      "id": "endpoint-105-80",
+      "title": "NextcloudPi endpoint port closed",
+      "host": "LXC 105",
+      "evidence": "bash: -c: line 3: unexpected EOF while looking for matching `''",
+      "impact": "Expected application endpoint is not listening."
+    },
+    {
+      "id": "endpoint-106-80",
+      "title": "OnlyOffice endpoint port closed",
+      "host": "LXC 106",
+      "evidence": "bash: -c: line 3: unexpected EOF while looking for matching `''",
+      "impact": "Expected application endpoint is not listening."
+    },
+    {
+      "id": "endpoint-107-9443",
+      "title": "Portainer endpoint port closed",
+      "host": "LXC 107",
+      "evidence": "bash: -c: line 3: unexpected EOF while looking for matching `''",
+      "impact": "Expected application endpoint is not listening."
+    },
+    {
+      "id": "endpoint-107-2375",
+      "title": "DockerAPI2375 endpoint port closed",
+      "host": "LXC 107",
+      "evidence": "bash: -c: line 3: unexpected EOF while looking for matching `''",
+      "impact": "Expected application endpoint is not listening."
+    }
+  ],
+  "warnings": [
+    {
+      "id": "docker-vm-unreachable",
+      "title": "Docker-VM unreachable",
+      "host": "Docker-VM",
+      "evidence": "PING 10.10.10.81 (10.10.10.81): 56 data bytes\nRequest timeout for icmp_seq 0\n\n--- 10.10.10.81 ping statistics ---\n2 packets transmitted, 0 packets received, 100.0% packet loss\nssh: connect to host 10.10.10.81 port 22: Operation timed out",
+      "impact": "Docker workloads on deprecated VM are unknown; LXC 107 remains separately audited."
+    },
+    {
+      "id": "unbound-failed",
+      "title": "Unbound or other LXC unit failed",
+      "host": "LXC 101",
+      "evidence": "See LXC failed-unit output in Proxmox evidence",
+      "impact": "DNS may continue via dnscrypt-proxy, but Unbound functionality is degraded."
+    }
+  ],
+  "action_queue": [
+    {
+      "severity": "CRITICAL",
+      "host": "OMV",
+      "action": "SMART non-zero pending/uncorrectable sectors on /dev/sdg",
+      "why": "Disk failure risk; data integrity and mergerfs availability are threatened."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "OMV",
+      "action": "SMART non-zero pending/uncorrectable sectors on /dev/sdg",
+      "why": "Disk failure risk; data integrity and mergerfs availability are threatened."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "Proxmox",
+      "action": "Missing backup for VM 111",
+      "why": "No current recovery point is available."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "Proxmox",
+      "action": "Missing backup for LXC 101",
+      "why": "No current recovery point is available."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "Proxmox",
+      "action": "Missing backup for LXC 102",
+      "why": "No current recovery point is available."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "Proxmox",
+      "action": "Missing backup for LXC 103",
+      "why": "No current recovery point is available."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "Proxmox",
+      "action": "Missing backup for LXC 104",
+      "why": "No current recovery point is available."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "Proxmox",
+      "action": "Missing backup for LXC 105",
+      "why": "No current recovery point is available."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "Proxmox",
+      "action": "Missing backup for LXC 106",
+      "why": "No current recovery point is available."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "Proxmox",
+      "action": "Missing backup for LXC 107",
+      "why": "No current recovery point is available."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "Proxmox",
+      "action": "Missing backup for LXC 108",
+      "why": "No current recovery point is available."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "Proxmox",
+      "action": "Missing backup for LXC 109",
+      "why": "No current recovery point is available."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "Proxmox",
+      "action": "Missing backup for LXC 997",
+      "why": "No current recovery point is available."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "LXC 101",
+      "action": "Pi-hole endpoint port closed",
+      "why": "Expected application endpoint is not listening."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "LXC 102",
+      "action": "SearXNG endpoint port closed",
+      "why": "Expected application endpoint is not listening."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "LXC 103",
+      "action": "Immich endpoint port closed",
+      "why": "Expected application endpoint is not listening."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "LXC 105",
+      "action": "NextcloudPi endpoint port closed",
+      "why": "Expected application endpoint is not listening."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "LXC 106",
+      "action": "OnlyOffice endpoint port closed",
+      "why": "Expected application endpoint is not listening."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "LXC 107",
+      "action": "Portainer endpoint port closed",
+      "why": "Expected application endpoint is not listening."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "LXC 107",
+      "action": "DockerAPI2375 endpoint port closed",
+      "why": "Expected application endpoint is not listening."
+    }
+  ],
+  "backups": [
+    {
+      "asset": "VM 111",
+      "latest_backup_timestamp": null,
+      "path": null,
+      "size": null,
+      "age_hours": null,
+      "status": "missing"
+    },
+    {
+      "asset": "LXC 101",
+      "latest_backup_timestamp": null,
+      "path": null,
+      "size": null,
+      "age_hours": null,
+      "status": "missing"
+    },
+    {
+      "asset": "LXC 102",
+      "latest_backup_timestamp": null,
+      "path": null,
+      "size": null,
+      "age_hours": null,
+      "status": "missing"
+    },
+    {
+      "asset": "LXC 103",
+      "latest_backup_timestamp": null,
+      "path": null,
+      "size": null,
+      "age_hours": null,
+      "status": "missing"
+    },
+    {
+      "asset": "LXC 104",
+      "latest_backup_timestamp": null,
+      "path": null,
+      "size": null,
+      "age_hours": null,
+      "status": "missing"
+    },
+    {
+      "asset": "LXC 105",
+      "latest_backup_timestamp": null,
+      "path": null,
+      "size": null,
+      "age_hours": null,
+      "status": "missing"
+    },
+    {
+      "asset": "LXC 106",
+      "latest_backup_timestamp": null,
+      "path": null,
+      "size": null,
+      "age_hours": null,
+      "status": "missing"
+    },
+    {
+      "asset": "LXC 107",
+      "latest_backup_timestamp": null,
+      "path": null,
+      "size": null,
+      "age_hours": null,
+      "status": "missing"
+    },
+    {
+      "asset": "LXC 108",
+      "latest_backup_timestamp": null,
+      "path": null,
+      "size": null,
+      "age_hours": null,
+      "status": "missing"
+    },
+    {
+      "asset": "LXC 109",
+      "latest_backup_timestamp": null,
+      "path": null,
+      "size": null,
+      "age_hours": null,
+      "status": "missing"
+    },
+    {
+      "asset": "LXC 997",
+      "latest_backup_timestamp": null,
+      "path": null,
+      "size": null,
+      "age_hours": null,
+      "status": "missing"
+    }
+  ],
+  "smart": [
+    {
+      "disk": "/dev/sda",
+      "metric": "Current",
+      "raw": "Current Drive Temperature:     0 C",
+      "values": [
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sda",
+      "metric": "Drive",
+      "raw": "Drive Trip Temperature:        0 C",
+      "values": [
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdb",
+      "metric": "5",
+      "raw": "  5 Reallocated_Sector_Ct   0x0033   200   200   140    Pre-fail  Always       -       0",
+      "values": [
+        "5",
+        "0",
+        "0033",
+        "200",
+        "200",
+        "140",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdb",
+      "metric": "194",
+      "raw": "194 Temperature_Celsius     0x0022   101   074   000    Old_age   Always       -       42",
+      "values": [
+        "194",
+        "0",
+        "0022",
+        "101",
+        "074",
+        "000",
+        "42"
+      ]
+    },
+    {
+      "disk": "/dev/sdb",
+      "metric": "197",
+      "raw": "197 Current_Pending_Sector  0x0032   200   200   000    Old_age   Always       -       0",
+      "values": [
+        "197",
+        "0",
+        "0032",
+        "200",
+        "200",
+        "000",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdb",
+      "metric": "198",
+      "raw": "198 Offline_Uncorrectable   0x0030   200   200   000    Old_age   Offline      -       0",
+      "values": [
+        "198",
+        "0",
+        "0030",
+        "200",
+        "200",
+        "000",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdb",
+      "metric": "199",
+      "raw": "199 UDMA_CRC_Error_Count    0x0032   200   001   000    Old_age   Always       -       14647",
+      "values": [
+        "199",
+        "0",
+        "0032",
+        "200",
+        "001",
+        "000",
+        "14647"
+      ]
+    },
+    {
+      "disk": "/dev/sdc",
+      "metric": "5",
+      "raw": "  5 Reallocated_Sector_Ct   0x0033   100   100   036    Pre-fail  Always       -       56",
+      "values": [
+        "5",
+        "0",
+        "0033",
+        "100",
+        "100",
+        "036",
+        "56"
+      ]
+    },
+    {
+      "disk": "/dev/sdc",
+      "metric": "188",
+      "raw": "188 Command_Timeout         0x0032   100   030   000    Old_age   Always       -       0 0 148",
+      "values": [
+        "188",
+        "0",
+        "0032",
+        "100",
+        "030",
+        "000",
+        "0",
+        "0",
+        "148"
+      ]
+    },
+    {
+      "disk": "/dev/sdc",
+      "metric": "190",
+      "raw": "190 Airflow_Temperature_Cel 0x0022   059   041   045    Old_age   Always   In_the_past 41 (Min/Max 36/45 #121)",
+      "values": [
+        "190",
+        "0",
+        "0022",
+        "059",
+        "041",
+        "045",
+        "41",
+        "36",
+        "45",
+        "121"
+      ]
+    },
+    {
+      "disk": "/dev/sdc",
+      "metric": "194",
+      "raw": "194 Temperature_Celsius     0x0022   041   059   000    Old_age   Always       -       41 (0 18 0 0 0)",
+      "values": [
+        "194",
+        "0",
+        "0022",
+        "041",
+        "059",
+        "000",
+        "41",
+        "0",
+        "18",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdc",
+      "metric": "197",
+      "raw": "197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       0",
+      "values": [
+        "197",
+        "0",
+        "0012",
+        "100",
+        "100",
+        "000",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdc",
+      "metric": "198",
+      "raw": "198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       0",
+      "values": [
+        "198",
+        "0",
+        "0010",
+        "100",
+        "100",
+        "000",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdc",
+      "metric": "199",
+      "raw": "199 UDMA_CRC_Error_Count    0x003e   200   200   000    Old_age   Always       -       6",
+      "values": [
+        "199",
+        "0",
+        "003",
+        "200",
+        "200",
+        "000",
+        "6"
+      ]
+    },
+    {
+      "disk": "/dev/sdd",
+      "metric": "5",
+      "raw": "  5 Reallocated_Sector_Ct   0x0033   100   100   036    Pre-fail  Always       -       0",
+      "values": [
+        "5",
+        "0",
+        "0033",
+        "100",
+        "100",
+        "036",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdd",
+      "metric": "188",
+      "raw": "188 Command_Timeout         0x0032   100   064   000    Old_age   Always       -       8590131331",
+      "values": [
+        "188",
+        "0",
+        "0032",
+        "100",
+        "064",
+        "000",
+        "8590131331"
+      ]
+    },
+    {
+      "disk": "/dev/sdd",
+      "metric": "190",
+      "raw": "190 Airflow_Temperature_Cel 0x0022   044   042   045    Old_age   Always   FAILING_NOW 56 (Min/Max 40/58 #298)",
+      "values": [
+        "190",
+        "0",
+        "0022",
+        "044",
+        "042",
+        "045",
+        "56",
+        "40",
+        "58",
+        "298"
+      ]
+    },
+    {
+      "disk": "/dev/sdd",
+      "metric": "194",
+      "raw": "194 Temperature_Celsius     0x0022   056   058   000    Old_age   Always       -       56 (0 26 0 0 0)",
+      "values": [
+        "194",
+        "0",
+        "0022",
+        "056",
+        "058",
+        "000",
+        "56",
+        "0",
+        "26",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdd",
+      "metric": "197",
+      "raw": "197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       0",
+      "values": [
+        "197",
+        "0",
+        "0012",
+        "100",
+        "100",
+        "000",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdd",
+      "metric": "198",
+      "raw": "198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       0",
+      "values": [
+        "198",
+        "0",
+        "0010",
+        "100",
+        "100",
+        "000",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdd",
+      "metric": "199",
+      "raw": "199 UDMA_CRC_Error_Count    0x003e   200   200   000    Old_age   Always       -       14",
+      "values": [
+        "199",
+        "0",
+        "003",
+        "200",
+        "200",
+        "000",
+        "14"
+      ]
+    },
+    {
+      "disk": "/dev/sde",
+      "metric": "5",
+      "raw": "  5 Reallocated_Sector_Ct   0x0033   099   099   036    Pre-fail  Always       -       51",
+      "values": [
+        "5",
+        "0",
+        "0033",
+        "099",
+        "099",
+        "036",
+        "51"
+      ]
+    },
+    {
+      "disk": "/dev/sde",
+      "metric": "188",
+      "raw": "188 Command_Timeout         0x0032   100   055   000    Old_age   Always       -       32 35 122",
+      "values": [
+        "188",
+        "0",
+        "0032",
+        "100",
+        "055",
+        "000",
+        "32",
+        "35",
+        "122"
+      ]
+    },
+    {
+      "disk": "/dev/sde",
+      "metric": "190",
+      "raw": "190 Airflow_Temperature_Cel 0x0022   058   040   045    Old_age   Always   In_the_past 42 (Min/Max 37/47 #220)",
+      "values": [
+        "190",
+        "0",
+        "0022",
+        "058",
+        "040",
+        "045",
+        "42",
+        "37",
+        "47",
+        "220"
+      ]
+    },
+    {
+      "disk": "/dev/sde",
+      "metric": "194",
+      "raw": "194 Temperature_Celsius     0x0022   042   060   000    Old_age   Always       -       42 (0 17 0 0 0)",
+      "values": [
+        "194",
+        "0",
+        "0022",
+        "042",
+        "060",
+        "000",
+        "42",
+        "0",
+        "17",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sde",
+      "metric": "197",
+      "raw": "197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       0",
+      "values": [
+        "197",
+        "0",
+        "0012",
+        "100",
+        "100",
+        "000",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sde",
+      "metric": "198",
+      "raw": "198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       0",
+      "values": [
+        "198",
+        "0",
+        "0010",
+        "100",
+        "100",
+        "000",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sde",
+      "metric": "199",
+      "raw": "199 UDMA_CRC_Error_Count    0x003e   200   196   000    Old_age   Always       -       11156",
+      "values": [
+        "199",
+        "0",
+        "003",
+        "200",
+        "196",
+        "000",
+        "11156"
+      ]
+    },
+    {
+      "disk": "/dev/sdf",
+      "metric": "5",
+      "raw": "  5 Reallocated_Sector_Ct   0x0033   100   100   010    Pre-fail  Always       -       0",
+      "values": [
+        "5",
+        "0",
+        "0033",
+        "100",
+        "100",
+        "010",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdf",
+      "metric": "188",
+      "raw": "188 Command_Timeout         0x0032   100   099   000    Old_age   Always       -       6 6 8",
+      "values": [
+        "188",
+        "0",
+        "0032",
+        "100",
+        "099",
+        "000",
+        "6",
+        "6",
+        "8"
+      ]
+    },
+    {
+      "disk": "/dev/sdf",
+      "metric": "190",
+      "raw": "190 Airflow_Temperature_Cel 0x0022   055   052   045    Old_age   Always       -       45 (Min/Max 38/48)",
+      "values": [
+        "190",
+        "0",
+        "0022",
+        "055",
+        "052",
+        "045",
+        "45",
+        "38",
+        "48"
+      ]
+    },
+    {
+      "disk": "/dev/sdf",
+      "metric": "194",
+      "raw": "194 Temperature_Celsius     0x0022   045   048   000    Old_age   Always       -       45 (0 22 0 0 0)",
+      "values": [
+        "194",
+        "0",
+        "0022",
+        "045",
+        "048",
+        "000",
+        "45",
+        "0",
+        "22",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdf",
+      "metric": "197",
+      "raw": "197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       0",
+      "values": [
+        "197",
+        "0",
+        "0012",
+        "100",
+        "100",
+        "000",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdf",
+      "metric": "198",
+      "raw": "198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       0",
+      "values": [
+        "198",
+        "0",
+        "0010",
+        "100",
+        "100",
+        "000",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdf",
+      "metric": "199",
+      "raw": "199 UDMA_CRC_Error_Count    0x003e   200   200   000    Old_age   Always       -       2",
+      "values": [
+        "199",
+        "0",
+        "003",
+        "200",
+        "200",
+        "000",
+        "2"
+      ]
+    },
+    {
+      "disk": "/dev/sdg",
+      "metric": "5",
+      "raw": "  5 Reallocated_Sector_Ct   0x0033   056   001   036    Pre-fail  Always   In_the_past 32",
+      "values": [
+        "5",
+        "0",
+        "0033",
+        "056",
+        "001",
+        "036",
+        "32"
+      ]
+    },
+    {
+      "disk": "/dev/sdg",
+      "metric": "188",
+      "raw": "188 Command_Timeout         0x0032   100   038   000    Old_age   Always       -       90196607308",
+      "values": [
+        "188",
+        "0",
+        "0032",
+        "100",
+        "038",
+        "000",
+        "90196607308"
+      ]
+    },
+    {
+      "disk": "/dev/sdg",
+      "metric": "190",
+      "raw": "190 Airflow_Temperature_Cel 0x0022   058   045   040    Old_age   Always       -       42 (Min/Max 35/53)",
+      "values": [
+        "190",
+        "0",
+        "0022",
+        "058",
+        "045",
+        "040",
+        "42",
+        "35",
+        "53"
+      ]
+    },
+    {
+      "disk": "/dev/sdg",
+      "metric": "194",
+      "raw": "194 Temperature_Celsius     0x0022   042   055   000    Old_age   Always       -       42 (0 19 0 0 0)",
+      "values": [
+        "194",
+        "0",
+        "0022",
+        "042",
+        "055",
+        "000",
+        "42",
+        "0",
+        "19",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "disk": "/dev/sdg",
+      "metric": "197",
+      "raw": "197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       8",
+      "values": [
+        "197",
+        "0",
+        "0012",
+        "100",
+        "100",
+        "000",
+        "8"
+      ]
+    },
+    {
+      "disk": "/dev/sdg",
+      "metric": "198",
+      "raw": "198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       8",
+      "values": [
+        "198",
+        "0",
+        "0010",
+        "100",
+        "100",
+        "000",
+        "8"
+      ]
+    },
+    {
+      "disk": "/dev/sdg",
+      "metric": "199",
+      "raw": "199 UDMA_CRC_Error_Count    0x003e   200   200   000    Old_age   Always       -       7",
+      "values": [
+        "199",
+        "0",
+        "003",
+        "200",
+        "200",
+        "000",
+        "7"
+      ]
+    }
+  ],
+  "changes_since_previous": [
+    "Compared with homelab-deep-audit-2026-07-18_05-31.md; prior critical-like lines: 4.",
+    "Prior report contains approval/action lines; live state was rechecked. Any still-present approved item requires escalation review."
+  ],
+  "report_path": "/Users/beem/homelab-reports/homelab-deep-audit-2026-07-20_05-32-BLOCKED.md",
+  "blocked_reason": "Docker-VM"
+}

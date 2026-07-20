@@ -1,0 +1,322 @@
+{
+  "generated_at": "2026-07-13 15:52:13 WIB",
+  "overall_status": "CRITICAL",
+  "critical_count": 8,
+  "warning_count": 9,
+  "blocked_count": 1,
+  "hosts": {
+    "reachability": {
+      "proxmox": {
+        "ip": "10.10.10.2",
+        "ping": {
+          "rc": 0,
+          "out": "PING 10.10.10.2 (10.10.10.2): 56 data bytes\n64 bytes from 10.10.10.2: icmp_seq=0 ttl=64 time=2.292 ms\n\n--- 10.10.10.2 ping statistics ---\n2 packets transmitted, 2 packets received, 0.0% packet loss, 1 packets out of wait time\nround-trip min/avg/max/stddev = 2.292/7.183/12.074/4.891 ms\n",
+          "err": ""
+        },
+        "ssh": {
+          "rc": 0,
+          "out": "pve\nMon Jul 13 03:52:15 PM WIB 2026\n",
+          "err": ""
+        }
+      },
+      "docker-vm": {
+        "ip": "10.10.10.81",
+        "ping": {
+          "rc": 2,
+          "out": "PING 10.10.10.81 (10.10.10.81): 56 data bytes\nRequest timeout for icmp_seq 0\n\n--- 10.10.10.81 ping statistics ---\n2 packets transmitted, 0 packets received, 100.0% packet loss\n",
+          "err": ""
+        },
+        "ssh": {
+          "rc": 255,
+          "out": "",
+          "err": "ssh: connect to host 10.10.10.81 port 22: Operation timed out\n"
+        }
+      },
+      "omv": {
+        "ip": "10.10.10.82",
+        "ping": {
+          "rc": 0,
+          "out": "PING 10.10.10.82 (10.10.10.82): 56 data bytes\n64 bytes from 10.10.10.82: icmp_seq=0 ttl=64 time=3.278 ms\n\n--- 10.10.10.82 ping statistics ---\n2 packets transmitted, 2 packets received, 0.0% packet loss, 1 packets out of wait time\nround-trip min/avg/max/stddev = 3.278/4.139/5.001/0.862 ms\n",
+          "err": ""
+        },
+        "ssh": {
+          "rc": 0,
+          "out": "openmediavault8\nMon Jul 13 15:52:34 WIB 2026\n",
+          "err": ""
+        }
+      }
+    },
+    "lxc_ips": {
+      "101": "10.10.10.95",
+      "102": "10.10.10.5",
+      "103": "10.10.10.3",
+      "104": "10.10.10.15",
+      "105": "10.10.10.23",
+      "106": "10.10.10.49",
+      "107": "10.10.10.16",
+      "108": "10.10.10.83",
+      "109": "10.10.10.74",
+      "997": "10.10.10.86"
+    }
+  },
+  "critical": [
+    {
+      "id": "reach-docker-vm",
+      "title": "Host unreachable",
+      "host": "docker-vm",
+      "evidence": "{'ip': '10.10.10.81', 'ping': {'rc': 2, 'out': 'PING 10.10.10.81 (10.10.10.81): 56 data bytes\\nRequest timeout for icmp_seq 0\\n\\n--- 10.10.10.81 ping statistics ---\\n2 packets transmitted, 0 packets received, 100.0% packet loss\\n', 'err': ''}, 'ssh': {'rc': 255, 'out': '', 'err': 'ssh: connect to host 10.10.10.81 port 22: Operation timed out\\n'}}",
+      "impact": "Required audit sections unavailable; service state unknown."
+    },
+    {
+      "id": "backup-108",
+      "title": "No recent backup archive found",
+      "host": "108",
+      "evidence": "No matching archive in /mnt/pve/backup-nas/dump",
+      "impact": "Recovery gap for current VM/LXC asset."
+    },
+    {
+      "id": "backup-109",
+      "title": "No recent backup archive found",
+      "host": "109",
+      "evidence": "No matching archive in /mnt/pve/backup-nas/dump",
+      "impact": "Recovery gap for current VM/LXC asset."
+    },
+    {
+      "id": "smart-5",
+      "title": "Non-zero SMART media error counter",
+      "host": "OMV",
+      "evidence": "  5 Reallocated_Sector_Ct   0x0033   100   100   036    Pre-fail  Always       -       56",
+      "impact": "Possible disk degradation or data-loss risk."
+    },
+    {
+      "id": "smart-5",
+      "title": "Non-zero SMART media error counter",
+      "host": "OMV",
+      "evidence": "  5 Reallocated_Sector_Ct   0x0033   099   099   036    Pre-fail  Always       -       51",
+      "impact": "Possible disk degradation or data-loss risk."
+    },
+    {
+      "id": "smart-5",
+      "title": "Non-zero SMART media error counter",
+      "host": "OMV",
+      "evidence": "  5 Reallocated_Sector_Ct   0x0033   079   001   036    Pre-fail  Always   In_the_past 32",
+      "impact": "Possible disk degradation or data-loss risk."
+    },
+    {
+      "id": "smart-197",
+      "title": "Non-zero SMART media error counter",
+      "host": "OMV",
+      "evidence": "197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       8",
+      "impact": "Possible disk degradation or data-loss risk."
+    },
+    {
+      "id": "smart-198",
+      "title": "Non-zero SMART media error counter",
+      "host": "OMV",
+      "evidence": "198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       8",
+      "impact": "Possible disk degradation or data-loss risk."
+    }
+  ],
+  "warnings": [
+    {
+      "id": "pve-failed",
+      "title": "Proxmox failed units",
+      "host": "proxmox",
+      "evidence": "\n  UNIT LOAD ACTIVE SUB DESCRIPTION\n\n0 loaded units listed.\n",
+      "impact": "May indicate degraded host service; verify active state."
+    },
+    {
+      "id": "lxc-101-failed",
+      "title": "Failed systemd units",
+      "host": "101",
+      "evidence": "pihole\nlo               UNKNOWN        127.0.0.1/8 \neth0@if16        UP             10.10.10.95/24 \n  UNIT            LOAD   ACTIVE SUB    DESCRIPTION\n\u25cf unbound.service loaded failed failed Unbound DNS server\n\nLegend: LOAD   \u2192 Reflects whether the unit definition was properly loaded.\n        ACTIVE \u2192 The high-level unit activation state, i.e. generalization of SUB.\n        SUB    \u2192 The low-level unit activation state, values depend on unit type.\n\n1 loaded units listed.",
+      "impact": "App or auxiliary service may be degraded."
+    },
+    {
+      "id": "lxc-103-failed",
+      "title": "Failed systemd units",
+      "host": "103",
+      "evidence": "immich\nlo               UNKNOWN        127.0.0.1/8 \neth0@if15        UP             10.10.10.3/24 \n  UNIT                 LOAD   ACTIVE SUB    DESCRIPTION\n\u25cf run-rpc_pipefs.mount loaded failed failed RPC Pipe File System\n\nLegend: LOAD   \u2192 Reflects whether the unit definition was properly loaded.\n        ACTIVE \u2192 The high-level unit activation state, i.e. generalization of SUB.\n        SUB    \u2192 The low-level unit activation state, values depend on unit type.\n\n1 loaded units listed.",
+      "impact": "App or auxiliary service may be degraded."
+    },
+    {
+      "id": "lxc-105-failed",
+      "title": "Failed systemd units",
+      "host": "105",
+      "evidence": "nextcloudpi\nlo               UNKNOWN        127.0.0.1/8 \neth0@if12        UP             10.10.10.23/24 \n  UNIT                     LOAD   ACTIVE SUB    DESCRIPTION\n\u25cf nvmf-autoconnect.service loaded failed failed Connect NVMe-oF subsystems automatically during boot\n\u25cf openipmi.service         loaded failed failed LSB: OpenIPMI Driver init script\n\nLOAD   = Reflects whether the unit definition was properly loaded.\nACTIVE = The high-level unit activation state, i.e. generalization of SUB.\nSUB    = The low-level unit activation state, values depend on unit type.\n2 loaded units listed.",
+      "impact": "App or auxiliary service may be degraded."
+    },
+    {
+      "id": "lxc-997-failed",
+      "title": "Failed systemd units",
+      "host": "997",
+      "evidence": "\u001b[1mDebian LXC Container\u001b[m\n    \ud83c\udf10  \u001b[m\u001b[33m Provided by: \u001b[1;92mcommunity-scripts ORG \u001b[33m| GitHub: \u001b[1;92mhttps://github.com/community-scripts/ProxmoxVE\u001b[m\n\n    \ud83d\udda5\ufe0f  \u001b[m\u001b[33m OS: \u001b[1;92mDebian GNU/Linux - Version: 13\u001b[m\n    \ud83c\udfe0  \u001b[m\u001b[33m Hostname: \u001b[1;92mtailscale\u001b[m\n    \ud83d\udca1  \u001b[m\u001b[33m IP Address: \u001b[1;92m10.10.10.86\u001b[m\ntailscale\nlo               UNKNOWN        127.0.0.1/8 \neth0@if9         UP             10.10.10.86/24 \n  UNIT                                     LOAD   ACTIVE SUB    DESCRIPTION\n\u25cf dev-hugepages.mount                      loaded failed failed Huge Pages File System\n\u25cf dev-mqueue.mount                         loaded failed failed POSIX Message Queue File System\n\u25cf run-lock.mount                           loaded failed failed Legacy Locks Directory /run/lock\n\u25cf tmp.mount                                loaded failed failed Temporary Directory /tmp\n\u25cf cockpit-wsinstance-socket-user.service   loaded failed failed Dynamic user for /run/cockpit/wsinstance/ sockets\n\u25cf console-getty.service                    loaded failed failed Console Getty\n\u25cf container-getty@1.service                loaded failed failed Container Getty on /dev/tty1\n\u25cf container-getty@2.service                loaded ",
+      "impact": "App or auxiliary service may be degraded."
+    },
+    {
+      "id": "unbound-failed",
+      "title": "Unbound service failed",
+      "host": "LXC 101",
+      "evidence": "unbound appears failed in systemd output",
+      "impact": "DNS fallback may still work via dnscrypt-proxy, but DoT resolver is degraded."
+    },
+    {
+      "id": "end-102-8080",
+      "title": "searxng port closed",
+      "host": "LXC 102",
+      "evidence": "{'label': 'searxng', 'port': 8080, 'tcp': 'CLOSED', 'http': '/bin/sh: timeout: command not found\\n'}",
+      "impact": "Endpoint unavailable or port changed."
+    },
+    {
+      "id": "end-106-8080",
+      "title": "onlyoffice port closed",
+      "host": "LXC 106",
+      "evidence": "{'label': 'onlyoffice', 'port': 8080, 'tcp': 'CLOSED', 'http': '/bin/sh: timeout: command not found\\n'}",
+      "impact": "Endpoint unavailable or port changed."
+    },
+    {
+      "id": "end-107-2375",
+      "title": "docker-api port closed",
+      "host": "LXC 107",
+      "evidence": "{'label': 'docker-api', 'port': 2375, 'tcp': 'CLOSED', 'http': ''}",
+      "impact": "Endpoint unavailable or port changed."
+    }
+  ],
+  "action_queue": [
+    {
+      "severity": "CRITICAL",
+      "host": "docker-vm",
+      "action": "Host unreachable",
+      "why": "Required audit sections unavailable; service state unknown."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "108",
+      "action": "No recent backup archive found",
+      "why": "Recovery gap for current VM/LXC asset."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "109",
+      "action": "No recent backup archive found",
+      "why": "Recovery gap for current VM/LXC asset."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "OMV",
+      "action": "Non-zero SMART media error counter",
+      "why": "Possible disk degradation or data-loss risk."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "OMV",
+      "action": "Non-zero SMART media error counter",
+      "why": "Possible disk degradation or data-loss risk."
+    },
+    {
+      "severity": "CRITICAL",
+      "host": "OMV",
+      "action": "Non-zero SMART media error counter",
+      "why": "Possible disk degradation or data-loss risk."
+    }
+  ],
+  "backups": [
+    {
+      "asset": "111",
+      "latest": {
+        "timestamp": "2026-07-13 02:02:43.4823278800",
+        "size": "4492",
+        "path": "/mnt/pve/backup-nas/dump/vzdump-qemu-111-2026_07_13-02_00_03.log"
+      },
+      "status": "covered"
+    },
+    {
+      "asset": "101",
+      "latest": {
+        "timestamp": "2026-07-13 02:03:42.1829784950",
+        "size": "1692",
+        "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-101-2026_07_13-02_02_44.log"
+      },
+      "status": "covered"
+    },
+    {
+      "asset": "102",
+      "latest": {
+        "timestamp": "2026-07-13 02:04:03.5359422950",
+        "size": "1690",
+        "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-102-2026_07_13-02_03_43.log"
+      },
+      "status": "covered"
+    },
+    {
+      "asset": "103",
+      "latest": {
+        "timestamp": "2026-07-13 02:09:11.4868353210",
+        "size": "2182",
+        "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-103-2026_07_13-02_04_04.log"
+      },
+      "status": "covered"
+    },
+    {
+      "asset": "104",
+      "latest": {
+        "timestamp": "2026-07-13 02:09:22.3423690260",
+        "size": "1699",
+        "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-104-2026_07_13-02_09_12.log"
+      },
+      "status": "covered"
+    },
+    {
+      "asset": "105",
+      "latest": {
+        "timestamp": "2026-07-13 02:11:43.7575024200",
+        "size": "1914",
+        "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-105-2026_07_13-02_09_23.log"
+      },
+      "status": "covered"
+    },
+    {
+      "asset": "106",
+      "latest": {
+        "timestamp": "2026-07-13 02:12:34.8040712710",
+        "size": "1697",
+        "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-106-2026_07_13-02_11_45.log"
+      },
+      "status": "covered"
+    },
+    {
+      "asset": "107",
+      "latest": {
+        "timestamp": "2026-07-13 02:13:03.9411374460",
+        "size": "1689",
+        "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-107-2026_07_13-02_12_36.log"
+      },
+      "status": "covered"
+    },
+    {
+      "asset": "108",
+      "latest": null,
+      "status": "missing"
+    },
+    {
+      "asset": "109",
+      "latest": null,
+      "status": "missing"
+    },
+    {
+      "asset": "997",
+      "latest": {
+        "timestamp": "2026-07-13 02:13:16.0805402200",
+        "size": "1052",
+        "path": "/mnt/pve/backup-nas/dump/vzdump-lxc-997-2026_07_13-02_13_05.log"
+      },
+      "status": "covered"
+    }
+  ],
+  "smart": "\n===/dev/sda===\nCurrent Drive Temperature:     0 C\nDrive Trip Temperature:        0 C\n===/dev/sdb===\nSMART overall-health self-assessment test result: PASSED\n  5 Reallocated_Sector_Ct   0x0033   200   200   140    Pre-fail  Always       -       0\n  9 Power_On_Hours          0x0032   042   042   000    Old_age   Always       -       42371\n194 Temperature_Celsius     0x0022   100   074   000    Old_age   Always       -       43\n197 Current_Pending_Sector  0x0032   200   200   000    Old_age   Always       -       0\n198 Offline_Uncorrectable   0x0030   200   200   000    Old_age   Offline      -       0\n199 UDMA_CRC_Error_Count    0x0032   200   001   000    Old_age   Always       -       14647\n===/dev/sdc===\nSMART overall-health self-assessment test result: PASSED\n  5 Reallocated_Sector_Ct   0x0033   100   100   036    Pre-fail  Always       -       56\n  9 Power_On_Hours          0x0032   068   068   000    Old_age   Always       -       28684\n188 Command_Timeout         0x0032   100   030   000    Old_age   Always       -       0 0 148\n190 Airflow_Temperature_Cel 0x0022   059   041   045    Old_age   Always   In_the_past 41 (Min/Max 36/45 #121)\n194 Temperature_Celsius     0x0022   041   059   000    Old_age   Always       -       41 (0 18 0 0 0)\n197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       0\n198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       0\n199 UDMA_CRC_Error_Count    0x003e   200   200   000    Old_age   Always       -       6\n===/dev/sdd===\nSMART overall-health self-assessment test result: PASSED\n  5 Reallocated_Sector_Ct   0x0033   100   100   036    Pre-fail  Always       -       0\n  9 Power_On_Hours          0x0032   078   078   000    Old_age   Always       -       19332\n188 Command_Timeout         0x0032   100   064   000    Old_age   Always       -       8590131331\n190 Airflow_Temperature_Cel 0x0022   047   042   045    Old_age   Always   In_the_past 53 (Min/Max 40/58 #278)\n194 Temperature_Celsius     0x0022   053   058   000    Old_age   Always       -       53 (0 26 0 0 0)\n197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       0\n198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       0\n199 UDMA_CRC_Error_Count    0x003e   200   200   000    Old_age   Always       -       14\n===/dev/sde===\nSMART overall-health self-assessment test result: PASSED\n  5 Reallocated_Sector_Ct   0x0033   099   099   036    Pre-fail  Always       -       51\n  9 Power_On_Hours          0x0032   063   063   000    Old_age   Always       -       32727\n188 Command_Timeout         0x0032   100   055   000    Old_age   Always       -       32 35 122\n190 Airflow_Temperature_Cel 0x0022   058   040   045    Old_age   Always   In_the_past 42 (Min/Max 37/47 #220)\n194 Temperature_Celsius     0x0022   042   060   000    Old_age   Always       -       42 (0 17 0 0 0)\n197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       0\n198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       0\n199 UDMA_CRC_Error_Count    0x003e   200   196   000    Old_age   Always       -       11156\n===/dev/sdf===\nSMART overall-health self-assessment test result: PASSED\n  5 Reallocated_Sector_Ct   0x0033   100   100   010    Pre-fail  Always       -       0\n  9 Power_On_Hours          0x0032   066   066   000    Old_age   Always       -       30577\n188 Command_Timeout         0x0032   100   099   000    Old_age   Always       -       6 6 8\n190 Airflow_Temperature_Cel 0x0022   057   052   045    Old_age   Always       -       43 (Min/Max 38/48)\n194 Temperature_Celsius     0x0022   043   048   000    Old_age   Always       -       43 (0 22 0 0 0)\n197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       0\n198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       0\n199 UDMA_CRC_Error_Count    0x003e   200   200   000    Old_age   Always       -       2\n===/dev/sdg===\nSMART overall-health self-assessment test result: PASSED\n  5 Reallocated_Sector_Ct   0x0033   079   001   036    Pre-fail  Always   In_the_past 32\n  9 Power_On_Hours          0x0032   060   060   000    Old_age   Always       -       35166 (100 25 0)\n188 Command_Timeout         0x0032   100   038   000    Old_age   Always       -       90196607308\n190 Airflow_Temperature_Cel 0x0022   059   045   040    Old_age   Always       -       41 (Min/Max 35/53)\n194 Temperature_Celsius     0x0022   041   055   000    Old_age   Always       -       41 (0 19 0 0 0)\n197 Current_Pending_Sector  0x0012   100   100   000    Old_age   Always       -       8\n198 Offline_Uncorrectable   0x0010   100   100   000    Old_age   Offline      -       8\n199 UDMA_CRC_Error_Count    0x003e   200   200   000    Old_age   Always       -       7\n",
+  "changes_since_previous": [
+    "Compared with previous report; see issue deltas below."
+  ],
+  "report_path": "/Users/beem/homelab-reports/homelab-deep-audit-2026-07-13_15-52.md",
+  "blocked_reason": "docker-vm"
+}

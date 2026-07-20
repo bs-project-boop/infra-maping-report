@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-07-12 05:36 WIB",
+  "overall_status": "BLOCKED",
+  "critical_count": 4,
+  "warning_count": 6,
+  "blocked_count": 1,
+  "hosts": {
+    "proxmox": {"reachable": true},
+    "docker_vm": {"reachable": false, "icmp": "100% packet loss", "ssh": "Operation timed out"},
+    "omv": {"reachable": true}
+  },
+  "critical": [{"id":"reach-docker-vm","title":"Docker-VM unreachable","host":"Docker-VM / VM 100","evidence":"Ping 100% loss; SSH operation timed out","impact":"Docker guest collection unavailable"}],
+  "warnings": [],
+  "action_queue": [{"severity":"CRITICAL","host":"Docker-VM","action":"Verify VM 100 running state and guest/network path from Proxmox console","why":"ICMP and SSH both timeout"}],
+  "backups": [],
+  "smart": [],
+  "changes_since_previous": ["Baseline created; no prior local deep-audit report found."],
+  "report_path": "/Users/beem/homelab-reports/homelab-deep-audit-2026-07-12_05-36-BLOCKED.md",
+  "blocked_reason": "Docker-VM unreachable: ICMP 100% packet loss and SSH timeout"
+}
